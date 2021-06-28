@@ -9,14 +9,14 @@ spec:
   releaseName: customer-net-ca
   chart:
     git: https://github.com/MChorfa/blockchain-automation-framework.git
-    ref: local-dev
+    ref: local
     path: platforms/hyperledger-fabric/charts/ca    
   values:
     metadata:
       namespace: customer-net
       images:
         alpineutils: hyperledgerlabs/alpine-utils:1.0
-        ca: hyperledger/fabric-ca:1.4.4
+        ca: hyperledger/fabric-ca:1.4.8
     server:
       name: ca
       tlsstatus: true
