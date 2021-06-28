@@ -9,7 +9,7 @@ spec:
   releaseName: customer-net-ca-tools
   chart:
     git: https://github.com/MChorfa/blockchain-automation-framework.git
-    ref: local-dev
+    ref: local
     path: platforms/hyperledger-fabric/charts/catools
   values:
     metadata:

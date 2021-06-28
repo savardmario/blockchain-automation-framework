@@ -9,7 +9,7 @@ spec:
   releaseName: joinchannel-peer0-join-allchannel-customer-peer0
   chart:
     git: https://github.com/MChorfa/blockchain-automation-framework.git
-    ref: local-dev
+    ref: local
     path: platforms/hyperledger-fabric/charts/join_channel
   values:
     metadata:

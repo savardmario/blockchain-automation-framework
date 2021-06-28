@@ -9,7 +9,7 @@ spec:
   releaseName: customer-peer0
   chart:
     git: https://github.com/MChorfa/blockchain-automation-framework.git
-    ref: local-dev
+    ref: local
     path: platforms/hyperledger-fabric/charts/peernode    
   values:
     metadata:
