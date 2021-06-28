@@ -34,3 +34,6 @@
 **/*.log
 # Ignore node_modules
 **/node_modules
+
+.env
+platforms/hyperledger-fabric/releases/dev

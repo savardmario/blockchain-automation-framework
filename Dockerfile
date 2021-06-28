@@ -2,12 +2,15 @@
 # docker build . -t baf-build
 # docker run -v $(pwd):/home/blockchain-automation-framework/ baf-build
 
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 # Create working directory
 WORKDIR /home/
-ENV PYTHON_VERSION='3.6.5'
+
+ENV ANSIBLE_VERSION='3.4.0'
+ENV JMESPATH_VERSION='0.10.0'
 ENV OPENSHIFT_VERSION='0.10.1'
+ENV PYTHON_VERSION='3.6.5'
 
 RUN apt-get update -y && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -35,8 +38,8 @@ RUN wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VER
 RUN apt-get update && apt-get install -y \
     python3-pip && \
     pip3 install --no-cache --upgrade pip setuptools wheel && \
-    pip3 install ansible && \
-    pip3 install jmespath && \
+    pip3 install ansible==${ANSIBLE_VERSION} && \
+    pip3 install jmespath==${JMESPATH_VERSION} && \
     pip3 install openshift==${OPENSHIFT_VERSION} && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
