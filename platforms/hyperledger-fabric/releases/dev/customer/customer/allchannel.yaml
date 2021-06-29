@@ -40,11 +40,11 @@ spec:
     orderer:
       address: orderer1.droneservice-net:7050
     channeltx: |-
-      CrIDChgKFggCGgYI+OvphgYiCmFsbGNoYW5uZWwSlQMKkgMKCmFsbGNoYW5uZWwSMhIgCgtBcHBs
+      CrIDChgKFggCGgYIzO/phgYiCmFsbGNoYW5uZWwSlQMKkgMKCmFsbGNoYW5uZWwSMhIgCgtBcHBs
       aWNhdGlvbhIREg8KC2N1c3RvbWVyTVNQEgAaDgoKQ29uc29ydGl1bRIAGs8CEqICCgtBcHBsaWNh
       dGlvbhKSAggBEg8KC2N1c3RvbWVyTVNQEgAaJAoMQ2FwYWJpbGl0aWVzEhQSCgoICgRWMl8wEgAa
-      BkFkbWlucyIsCgtFbmRvcnNlbWVudBIdEhMIAxIPCgtFbmRvcnNlbWVudBACGgZBZG1pbnMiNQoU
-      TGlmZWN5Y2xlRW5kb3JzZW1lbnQSHRITCAMSDwoLRW5kb3JzZW1lbnQQAhoGQWRtaW5zIiIKB1Jl
-      YWRlcnMSFxINCAMSCQoHUmVhZGVycxoGQWRtaW5zIiIKB1dyaXRlcnMSFxINCAMSCQoHV3JpdGVy
-      cxoGQWRtaW5zIiIKBkFkbWlucxIYEg4IAxIKCgZBZG1pbnMQAhoGQWRtaW5zKgZBZG1pbnMaKAoK
+      BkFkbWlucyI1ChRMaWZlY3ljbGVFbmRvcnNlbWVudBIdEhMIAxIPCgtFbmRvcnNlbWVudBACGgZB
+      ZG1pbnMiIgoHUmVhZGVycxIXEg0IAxIJCgdSZWFkZXJzGgZBZG1pbnMiIgoHV3JpdGVycxIXEg0I
+      AxIJCgdXcml0ZXJzGgZBZG1pbnMiIgoGQWRtaW5zEhgSDggDEgoKBkFkbWlucxACGgZBZG1pbnMi
+      LAoLRW5kb3JzZW1lbnQSHRITCAMSDwoLRW5kb3JzZW1lbnQQAhoGQWRtaW5zKgZBZG1pbnMaKAoK
       Q29uc29ydGl1bRIaEhgKFkRyb25lU2VydmljZUNvbnNvcnRpdW0=
