@@ -39,7 +39,7 @@ spec:
       address: orderer1.droneservice-net:7050
     chaincode:
       builder: hyperledger/fabric-ccenv:2.2.0
-      name: drone_reserver
+      name: drone-reserver
       version: 1
       lang: golang
       maindirectory: drone-reservation-chaincode
