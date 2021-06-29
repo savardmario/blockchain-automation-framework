@@ -40,7 +40,7 @@ spec:
     orderer:
       address: orderer1.droneservice-net:7050
     channeltx: |-
-      CrIDChgKFggCGgYImP3phgYiCmFsbGNoYW5uZWwSlQMKkgMKCmFsbGNoYW5uZWwSMhIgCgtBcHBs
+      CrIDChgKFggCGgYIrIXqhgYiCmFsbGNoYW5uZWwSlQMKkgMKCmFsbGNoYW5uZWwSMhIgCgtBcHBs
       aWNhdGlvbhIREg8KC2N1c3RvbWVyTVNQEgAaDgoKQ29uc29ydGl1bRIAGs8CEqICCgtBcHBsaWNh
       dGlvbhKSAggBEg8KC2N1c3RvbWVyTVNQEgAaJAoMQ2FwYWJpbGl0aWVzEhQSCgoICgRWMl8wEgAa
       BkFkbWlucyIiCgZBZG1pbnMSGBIOCAMSCgoGQWRtaW5zEAIaBkFkbWlucyIsCgtFbmRvcnNlbWVu
