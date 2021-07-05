@@ -1,0 +1,44 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: provider-net-ca
+  namespace: provider-net
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: provider-net-ca
+  chart:
+    git: https://github.com/MChorfa/blockchain-automation-framework.git
+    ref: local
+    path: platforms/hyperledger-fabric/charts/ca    
+  values:
+    metadata:
+      namespace: provider-net
+      images:
+        alpineutils: hyperledgerlabs/alpine-utils:1.0
+        ca: hyperledger/fabric-ca:1.4.8
+    server:
+      name: ca
+      tlsstatus: true
+      admin: provider-admin
+    storage:
+      storageclassname: providersc
+      storagesize: 512Mi
+    vault:
+      role: vault-role
+      address: http://192.168.2.121:8200
+      authpath: localprovider-net-auth
+      secretcert: secret/crypto/peerOrganizations/provider-net/ca?ca.provider-net-cert.pem
+      secretkey: secret/crypto/peerOrganizations/provider-net/ca?provider-net-CA.key
+      secretadminpass: secret/credentials/provider-net/ca/provider?user
+      serviceaccountname: vault-auth
+      imagesecretname: regcred
+    service:
+      servicetype: ClusterIP
+      ports:
+        tcp:
+          port: 7054
+    proxy:
+      provider: none
+      type: peer
+      external_url_suffix: develop.local.com
