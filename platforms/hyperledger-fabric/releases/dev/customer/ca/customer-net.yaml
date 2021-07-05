@@ -1,0 +1,44 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: customer-net-ca
+  namespace: customer-net
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: customer-net-ca
+  chart:
+    git: https://github.com/MChorfa/blockchain-automation-framework.git
+    ref: local
+    path: platforms/hyperledger-fabric/charts/ca    
+  values:
+    metadata:
+      namespace: customer-net
+      images:
+        alpineutils: hyperledgerlabs/alpine-utils:1.0
+        ca: hyperledger/fabric-ca:1.4.8
+    server:
+      name: ca
+      tlsstatus: true
+      admin: customer-admin
+    storage:
+      storageclassname: customersc
+      storagesize: 512Mi
+    vault:
+      role: vault-role
+      address: http://192.168.2.121:8200
+      authpath: localcustomer-net-auth
+      secretcert: secret/crypto/peerOrganizations/customer-net/ca?ca.customer-net-cert.pem
+      secretkey: secret/crypto/peerOrganizations/customer-net/ca?customer-net-CA.key
+      secretadminpass: secret/credentials/customer-net/ca/customer?user
+      serviceaccountname: vault-auth
+      imagesecretname: regcred
+    service:
+      servicetype: ClusterIP
+      ports:
+        tcp:
+          port: 7054
+    proxy:
+      provider: none
+      type: peer
+      external_url_suffix: develop.local.com
