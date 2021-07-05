@@ -31,4 +31,10 @@ start-vault:
 	nohup vault server -config=vault/config.hcl > vault.out  2>&1 &
 
 stop-vault:
-	pkil vault
+	pkill vault
+
+run-hlf:
+	docker run -it -v $(pwd):/home/blockchain-automation-framework/ baf-build-run
+	
+reset-hlf:
+	docker run -it -v $(pwd):/home/blockchain-automation-framework/ baf-build-reset
