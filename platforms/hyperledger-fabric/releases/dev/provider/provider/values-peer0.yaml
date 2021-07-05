@@ -1,0 +1,63 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: provider-peer0
+  namespace: provider-net
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: provider-peer0
+  chart:
+    git: https://github.com/MChorfa/blockchain-automation-framework.git
+    ref: local
+    path: platforms/hyperledger-fabric/charts/peernode    
+  values:
+    metadata:
+      namespace: provider-net
+      images:
+        couchdb: couchdb:3.1
+        peer: hyperledger/fabric-peer:2.2.0
+        alpineutils: hyperledgerlabs/alpine-utils:1.0
+        
+    peer:
+      name: peer0
+      gossippeeraddress: peer0.provider-net:7051
+      gossipexternalendpoint: peer0.provider-net:7051
+      localmspid: providerMSP
+      loglevel: info
+      tlsstatus: true
+      builder: hyperledger/fabric-ccenv:2.2.0
+      couchdb:
+        username: provider-user
+
+    storage:
+      peer:
+        storageclassname: providersc
+        storagesize: 512Mi
+      couchdb:
+        storageclassname: providersc
+        storagesize: 1Gi
+
+    vault:
+      role: vault-role
+      address: http://192.168.2.121:8200
+      authpath: localprovider-net-auth
+      secretprefix: secret/crypto/peerOrganizations/provider-net/peers/peer0.provider-net
+      secretambassador: secret/crypto/peerOrganizations/provider-net/ambassador
+      serviceaccountname: vault-auth
+      imagesecretname: regcred
+      secretcouchdbpass: secret/credentials/provider-net/couchdb/provider?user
+
+    service:
+      servicetype: ClusterIP
+      ports:
+        grpc:
+          clusteripport: 7051
+        events:
+          clusteripport: 7053
+        couchdb:
+          clusteripport: 5984
+          
+    proxy:
+      provider: "none"
+      external_url_suffix: develop.local.com
