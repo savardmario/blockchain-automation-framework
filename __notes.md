@@ -99,3 +99,10 @@ docker run -it -v $(pwd):/home/blockchain-automation-framework/ baf-build-reset
 
 
 docker run --rm -it -v $(pwd):/home/blockchain-automation-framework/ baf-build-run:latest
+
+
+
+
+
+
+nohup kubectl port-forward service/peer0 -n customer-net 7051:7051 > nohup.out  2>&1 &

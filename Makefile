@@ -35,6 +35,9 @@ stop-vault:
 
 run-hlf:
 	docker run -it -v $(pwd):/home/blockchain-automation-framework/ baf-build-run
-	
+
 reset-hlf:
 	docker run -it -v $(pwd):/home/blockchain-automation-framework/ baf-build-reset
+
+
+
