@@ -39,9 +39,9 @@ spec:
     orderer:
       address: orderer1.droneservice-net:7050
     anchorstx: |-
-      CroCChgKFggCGgYIjfuShwYiCmFsbGNoYW5uZWwSnQIKmgIKCmFsbGNoYW5uZWwSZBJiCgtBcHBs
-      aWNhdGlvbhJTCAESTwoLcHJvdmlkZXJNU1ASQBoHCgNNU1ASACIKCgZBZG1pbnMSACIPCgtFbmRv
-      cnNlbWVudBIAIgsKB1JlYWRlcnMSACILCgdXcml0ZXJzEgAapQESogEKC0FwcGxpY2F0aW9uEpIB
+      CroCChgKFggCGgYI3oGThwYiCmFsbGNoYW5uZWwSnQIKmgIKCmFsbGNoYW5uZWwSZBJiCgtBcHBs
+      aWNhdGlvbhJTCAESTwoLcHJvdmlkZXJNU1ASQBoHCgNNU1ASACILCgdXcml0ZXJzEgAiCgoGQWRt
+      aW5zEgAiDwoLRW5kb3JzZW1lbnQSACILCgdSZWFkZXJzEgAapQESogEKC0FwcGxpY2F0aW9uEpIB
       CAESjQEKC3Byb3ZpZGVyTVNQEn4IARoyCgtBbmNob3JQZWVycxIjEhkKFwoScGVlcjAucHJvdmlk
       ZXItbmV0EIs3GgZBZG1pbnMaBwoDTVNQEgAiCwoHV3JpdGVycxIAIgoKBkFkbWlucxIAIg8KC0Vu
       ZG9yc2VtZW50EgAiCwoHUmVhZGVycxIAKgZBZG1pbnM=
