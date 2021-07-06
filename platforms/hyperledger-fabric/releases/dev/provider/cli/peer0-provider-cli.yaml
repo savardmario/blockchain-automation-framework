@@ -1,0 +1,38 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: peer0-provider-cli
+  namespace: provider-net
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: peer0-provider-cli
+  chart:
+    git: https://github.com/MChorfa/blockchain-automation-framework.git
+    ref: local
+    path: platforms/hyperledger-fabric/charts/fabric_cli    
+  values:
+    metadata:
+      namespace: provider-net
+      images:
+        fabrictools: hyperledger/fabric-tools:2.2.0
+        alpineutils: hyperledgerlabs/alpine-utils:1.0
+    storage:
+      class: providersc
+      size: 256Mi
+    vault:
+      role: vault-role
+      address: http://192.168.2.121:8200
+      authpath: localprovider-net-auth
+      adminsecretprefix: secret/crypto/peerOrganizations/provider-net/users/admin
+      orderersecretprefix: secret/crypto/peerOrganizations/provider-net/orderer
+      serviceaccountname: vault-auth
+      imagesecretname: regcred
+      tls: false
+    peer:
+      name: peer0
+      localmspid: providerMSP
+      tlsstatus: true
+      address: peer0.provider-net:7051
+    orderer:
+      address: orderer1.droneservice-net:7050
