@@ -1,0 +1,48 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: anchorpeer-allchannel-provider
+  namespace: provider-net
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: anchorpeer-allchannel-provider
+  chart:
+    git: https://github.com/MChorfa/blockchain-automation-framework.git
+    ref: local
+    path: platforms/hyperledger-fabric/charts/anchorpeer
+  values:
+    metadata:
+      namespace: provider-net
+      images:
+        fabrictools: hyperledger/fabric-tools:2.2.0
+        alpineutils: hyperledgerlabs/alpine-utils:1.0
+
+    peer:
+      name: peer0
+      address: peer0.provider-net:7051
+      localmspid: providerMSP
+      loglevel: debug
+      tlsstatus: true
+
+    vault:
+      role: vault-role
+      address: http://192.168.2.121:8200
+      authpath: localprovider-net-auth
+      adminsecretprefix: secret/crypto/peerOrganizations/provider-net/users/admin
+      orderersecretprefix: secret/crypto/peerOrganizations/provider-net/orderer
+      serviceaccountname: vault-auth
+      imagesecretname: regcred
+
+    channel:
+      name: allchannel      
+    orderer:
+      address: orderer1.droneservice-net:7050
+    anchorstx: |-
+      CroCChgKFggCGgYIjfuShwYiCmFsbGNoYW5uZWwSnQIKmgIKCmFsbGNoYW5uZWwSZBJiCgtBcHBs
+      aWNhdGlvbhJTCAESTwoLcHJvdmlkZXJNU1ASQBoHCgNNU1ASACIKCgZBZG1pbnMSACIPCgtFbmRv
+      cnNlbWVudBIAIgsKB1JlYWRlcnMSACILCgdXcml0ZXJzEgAapQESogEKC0FwcGxpY2F0aW9uEpIB
+      CAESjQEKC3Byb3ZpZGVyTVNQEn4IARoyCgtBbmNob3JQZWVycxIjEhkKFwoScGVlcjAucHJvdmlk
+      ZXItbmV0EIs3GgZBZG1pbnMaBwoDTVNQEgAiCwoHV3JpdGVycxIAIgoKBkFkbWlucxIAIg8KC0Vu
+      ZG9yc2VtZW50EgAiCwoHUmVhZGVycxIAKgZBZG1pbnM=
+
