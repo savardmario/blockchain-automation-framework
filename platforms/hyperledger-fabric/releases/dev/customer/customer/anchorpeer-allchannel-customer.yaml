@@ -39,7 +39,7 @@ spec:
     orderer:
       address: orderer1.droneservice-net:7050
     anchorstx: |-
-      CroCChgKFggCGgYIjfuShwYiCmFsbGNoYW5uZWwSnQIKmgIKCmFsbGNoYW5uZWwSZBJiCgtBcHBs
+      CroCChgKFggCGgYI3oGThwYiCmFsbGNoYW5uZWwSnQIKmgIKCmFsbGNoYW5uZWwSZBJiCgtBcHBs
       aWNhdGlvbhJTCAESTwoLY3VzdG9tZXJNU1ASQBoHCgNNU1ASACILCgdSZWFkZXJzEgAiCwoHV3Jp
       dGVycxIAIgoKBkFkbWlucxIAIg8KC0VuZG9yc2VtZW50EgAapQESogEKC0FwcGxpY2F0aW9uEpIB
       CAESjQEKC2N1c3RvbWVyTVNQEn4IARoyCgtBbmNob3JQZWVycxIjEhkKFwoScGVlcjAuY3VzdG9t
