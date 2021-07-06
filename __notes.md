@@ -106,3 +106,21 @@ docker run --rm -it -v $(pwd):/home/blockchain-automation-framework/ baf-build-r
 
 
 nohup kubectl port-forward service/peer0 -n customer-net 7051:7051 > nohup.out  2>&1 &
+
+
+k exec -it pods/peer0-cli-58445cb75-nkvjq -n customer-net -- /bin/bash
+
+
+kubectl cp /absolute/path/to/chaincode/drone-reservation-chaincode provider-net/peer0-cli-86c6476dc9-m772k:/drone-chaincode 
+
+kubectl cp /absolute/path/to/chaincode/drone-reservation-chaincode customer-net/peer0-cli-58445cb75-nkvjq:/drone-chaincode 
+
+
+
+kubectl exec -it peer0-cli-XXXXXXX -n customer-net -- /bin/bash 
+
+kubectl exec -it peer0-cli-XXXXXXX -n provider-net -- /bin/bash 
+
+
+
+

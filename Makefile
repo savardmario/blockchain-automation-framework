@@ -15,7 +15,7 @@ ifneq (,$(wildcard ./.env))
 endif
 
 VAULT_ADDR=http://$(CURRENT_HOST_IP):8200
-
+VAULT_DATA_PATH=/home/$(USER)/tmp/vault/data
 export
 
 reset-minikube:
@@ -28,7 +28,8 @@ reset-minikube:
 	cp /home/$(USER)/.minikube/profiles/minikube/client.crt build/
 
 start-vault:
-	nohup vault server -config=vault/config.hcl > vault.out  2>&1 &
+	envsubst < ./vault/config.hcl.tmpl > ./vault/config.hcl
+	nohup vault server -config=./vault/config.hcl > vault.out  2>&1 &
 
 stop-vault:
 	pkill vault

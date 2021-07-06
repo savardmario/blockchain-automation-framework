@@ -2,7 +2,7 @@ ui = true
 disable_mlock=true
 
 storage "file" {
-   path    = "/home/mchorfa/tmp/vault/data"
+   path    = "${VAULT_DATA_PATH}"
 }
 
 listener "tcp" {
