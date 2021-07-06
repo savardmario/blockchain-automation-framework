@@ -1,0 +1,28 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: provider-net-ca-tools
+  namespace: provider-net
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: provider-net-ca-tools
+  chart:
+    git: https://github.com/MChorfa/blockchain-automation-framework.git
+    ref: local
+    path: platforms/hyperledger-fabric/charts/catools
+  values:
+    metadata:
+      namespace: provider-net
+      name: ca-tools
+
+    replicaCount: 1
+
+    image:
+      repository: hyperledger/fabric-ca-tools
+      tag: 1.2.1
+      pullPolicy: IfNotPresent
+      
+    storage:
+      storageclassname: providersc
+      storagesize: 512Mi
