@@ -38,3 +38,4 @@
 .env
 vault.out
 config.hcl
+nohup.out

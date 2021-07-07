@@ -1,0 +1,297 @@
+---
+# This is a sample configuration file for testing Fabric deployment on minikube which has 3 nodes.
+network:
+  # Network level configuration specifies the attributes required for each organization
+  # to join an existing network.
+  type: fabric
+  version: 2.2.0                 # currently tested 1.4.4 and 2.2.0
+
+  #Environment section for Kubernetes setup
+  env:
+    type: "local"                   # tag for the environment. Important to run multiple flux on single cluster
+    proxy: none                     # 'none' only minikube does not use a proxy
+    ambassadorPorts: 15010,15020    # Any additional Ambassador ports can be given here, must be comma-separated without spaces, this is valid only if proxy='ambassador'
+    retry_count: 50                 # Retry count for the checks
+    external_dns: disabled          # Should be disabled for minikube
+
+  # Docker registry details where images are stored. This will be used to create k8s secrets
+  # Please ensure all required images are built and stored in this registry.
+  # Do not check-in docker_password.
+  docker:
+    url: "hyperledgerlabs"
+    username: "docker_username"
+    password: "docker_password"
+  
+  # Remote connection information for orderer (will be blank or removed for orderer hosting organization)
+  orderers:
+    - orderer:
+      type: orderer
+      name: orderer1
+      org_name: droneservice                 # org_name should match one organization definition below in organizations: key            
+      uri: orderer1.droneservice-net:7050    # Internal URI for orderer which should be reachable by all peers
+      certificate: /home/blockchain-automation-framework/build/orderer1.crt   # the directory should be writable
+  
+  # The channels defined for a network with participating peers in each channel
+  channels:
+  - channel:
+    consortium: DroneServiceConsortium
+    channel_name: AllChannel
+    orderer: 
+      name: droneservice
+    participants:
+    - organization:
+      name: customer
+      type: creator
+      org_status: new
+      peers:
+      - peer:
+        name: peer0
+        gossipAddress: peer0.customer-net:7051
+        peerAddress: peer0.customer-net:7051     # Internal URI of the peer as this is for minikube
+      ordererAddress: orderer1.droneservice-net:7050
+    - organization:
+      name: provider
+      type: joiner
+      org_status: new
+      peers:
+      - peer:
+        name: peer0
+        gossipAddress: peer0.provider-net:7051
+        peerAddress: peer0.provider-net:7051     # Internal URI of the peer as this is for minikube
+      ordererAddress: orderer1.droneservice-net:7050
+    genesis:
+      name: OrdererGenesis  
+
+  # Allows specification of one or many organizations that will be connecting to a network.
+  # If an organization is also hosting the root of the network (e.g. doorman, membership service, etc),
+  # then these services should be listed in this section as well.
+  organizations:
+
+    # Specification for the 1st organization. Each organization maps to a VPC and a separate k8s cluster
+    - organization:
+      name: droneservice
+      country: UK
+      state: London
+      location: London
+      subject: "O=Orderer,L=51.50/-0.13/London,C=GB"
+      type: orderer
+      external_url_suffix: develop.local.com   # Ignore for proxy none
+      org_status: new
+      ca_data:
+        url: ca.droneservice-net:7054
+        certificate: file/server.crt           # This has not been implemented yet
+  
+      cloud_provider: minikube   # Options: minikube, azure, gcp
+        
+      # Kubernetes cluster deployment variables. The config file path and name has to be provided in case
+      # the cluster has already been created.
+      k8s:
+        region: "cluster_region"
+        context: "minikube"
+        config_file: "/home/blockchain-automation-framework/build/config"
+
+      # Hashicorp Vault server address and root-token. Vault should be unsealed.
+      # Do not check-in root_token
+      vault:
+        url: "http://192.168.2.121:8200"
+        root_token: "s.XXXXXXXXXXXXXXXXXXXXXXXXXXxx"
+        secret_path: "secret"
+      # Git Repo details which will be used by GitOps/Flux.
+      # Do not check-in git_access_token
+      gitops:
+        git_protocol: "https" # Option for git over https or ssh
+        git_url: "https://github.com/<Username>/blockchain-automation-framework.git"  # Gitops https or ssh url for flux value files 
+        git_ssh: "ssh://git@github.com/<Username>/blockchain-automation-framework.git"         # Gitops ssh url for flux value files 
+        branch: "local"                                                                 # Git branch where release is being made
+        release_dir: "platforms/hyperledger-fabric/releases/dev"                        # Relative Path in the Git repo for flux sync per environment. 
+        chart_source: "platforms/hyperledger-fabric/charts"                             # Relative Path where the Helm charts are stored in Git repo
+        git_repo: "github.com/<Username>/blockchain-automation-framework.git"       # Gitops https URL for git push  (without https://)
+        username: "<Username>"                                                     # Git user who has rights to check-in in all branches
+        password: "ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"          # Git Server user password/token (Optional for ssh; Required for https)
+        email: "tester@gmail..com"                                                           # Email to use in git config
+        private_key: "/home/blockchain-automation-framework/build/RTI_BLOCKCHAIN_GITOPS_SVC_ACC"              # Path to private key file which has write-access to the git repo
+
+      # Services maps to the pods that will be deployed on the k8s cluster
+      # This sample is an orderer service and includes a zk-raft consensus
+      services:
+        ca:
+          name: ca
+          subject: "/C=GB/ST=London/L=London/O=Orderer/CN=ca.droneservice-net"
+          type: ca
+          grpc:
+            port: 7054
+        
+        consensus:
+          name: kafka
+          type: broker
+          replicas: 3
+          grpc:
+            port: 9092
+                
+        orderers:
+        # This sample has multiple orderers as an example.
+        # You can use a single orderer for most production implementations.
+        - orderer:
+          name: orderer1
+          type: orderer
+          consensus: kafka
+          grpc:
+            port: 7050       
+
+    # Specification for the 2nd organization. Each organization maps to a VPC and a separate k8s cluster
+    - organization:
+      name: customer
+      country: CH
+      state: Zurich
+      location: Zurich
+      subject: "O=Customer,OU=Customer,L=47.38/8.54/Zurich,C=CH"
+      type: peer
+      external_url_suffix: develop.local.com  # Ignore for proxy none
+      org_status: new
+      ca_data:
+        url: ca.customer-net:7054
+        certificate: file/server.crt
+
+      cloud_provider: minikube   # Options: minikube, azure, gcp
+        
+      # Kubernetes cluster deployment variables. The config file path and name has to be provided in case
+      # the cluster has already been created.
+      k8s:
+        region: "cluster_region"
+        context: "minikube"
+        config_file: "/home/blockchain-automation-framework/build/config"
+
+      # Hashicorp Vault server address and root-token. Vault should be unsealed.
+      # Do not check-in root_token
+      vault:
+        url: "http://192.168.2.121:8200"
+        root_token: "s.XXXXXXXXXXXXXXXXXXXXXXXXXXxx"
+        secret_path: "secret"
+      # Git Repo details which will be used by GitOps/Flux.
+      # Do not check-in git_access_token
+      gitops:
+        git_protocol: "https" # Option for git over https or ssh
+        git_url: "https://github.com/<Username>/blockchain-automation-framework.git"  # Gitops https or ssh url for flux value files 
+        git_ssh: "ssh://git@github.com/<Username>/blockchain-automation-framework.git"         # Gitops ssh url for flux value files 
+        branch: "local"                                                                 # Git branch where release is being made
+        release_dir: "platforms/hyperledger-fabric/releases/dev"                        # Relative Path in the Git repo for flux sync per environment. 
+        chart_source: "platforms/hyperledger-fabric/charts"                             # Relative Path where the Helm charts are stored in Git repo
+        git_repo: "github.com/<Username>/blockchain-automation-framework.git"       # Gitops https URL for git push  (without https://)
+        username: "<Username>"                                                     # Git user who has rights to check-in in all branches
+        password: "ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"          # Git Server user password/token (Optional for ssh; Required for https)
+        email: "tester@gmail..com"                                                           # Email to use in git config
+        private_key: "/home/blockchain-automation-framework/build/RTI_BLOCKCHAIN_GITOPS_SVC_ACC"              # Path to private key file which has write-access to the git repo
+
+      # The participating nodes are peers
+      # This organization hosts it's own CA server
+      services:
+        ca:
+          name: ca
+          subject: "/C=CH/ST=Zurich/L=Zurich/O=Customer/CN=ca.customer-net"
+          type: ca
+          grpc:
+            port: 7054
+        peers:
+        - peer:
+          name: peer0          
+          type: anchor                                    # This can be anchor/nonanchor. Atleast one peer should be anchor peer.         
+          gossippeeraddress: peer0.customer-net:7051  # Internal Address of the other peer in same Org for gossip, same peer if there is only one peer  
+          peerAddress: peer0.customer-net:7051        # Internal URI of the peer as this is for minikube
+          cli: enabled                                   # Creates a peer cli pod depending upon the (enabled/disabled) tag. 
+          grpc:
+            port: 7051         
+          events:
+            port: 7053
+          couchdb:
+            port: 5984
+          restserver:           # This is for the rest-api server
+            targetPort: 20001
+            port: 20001 
+          expressapi:           # This is for the express api server
+            targetPort: 3000
+            port: 3000
+          chaincode:
+            name: "drone-reserver"    # This has to be replaced with the name of the chaincode
+            version: "1"           # This has to be replaced with the version of the chaincode (do NOT use .)
+            maindirectory: "cmd"   # The main directory where chaincode is needed to be placed
+            repository:
+              username: "<Username>"          # Git user
+              password: "ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"             # Git token or password of above user
+              url: "github.com/<Username>/hlf-chain-drone.git"
+              branch: "main"
+              # path: "/"  #The path to the chaincode in the repo
+            arguments: ""                                                  #Arguments to be passed along with the chaincode parameters
+            endorsements: ""                                                            #Endorsements (if any) provided along with the chaincode
+
+    # Specification for the 2nd organization. Each organization maps to a VPC and a separate k8s cluster
+    - organization:
+      name: provider
+      country: CH
+      state: Zurich
+      location: Zurich
+      subject: "O=Provider,OU=Provider,L=47.38/8.54/Zurich,C=CH"
+      type: peer
+      external_url_suffix: develop.local.com  # Ignore for proxy none
+      org_status: new
+      ca_data:
+        url: ca.provider-net:7054
+        certificate: file/server.crt
+
+      cloud_provider: minikube   # Options: minikube, azure, gcp
+        
+      # Kubernetes cluster deployment variables. The config file path and name has to be provided in case
+      # the cluster has already been created.
+      k8s:
+        region: "cluster_region"
+        context: "minikube"
+        config_file: "/home/blockchain-automation-framework/build/config"
+
+      # Hashicorp Vault server address and root-token. Vault should be unsealed.
+      # Do not check-in root_token
+      vault:
+        url: "http://192.168.2.121:8200"
+        root_token: "s.XXXXXXXXXXXXXXXXXXXXXXXXXXxx"
+        secret_path: "secret"
+      # Git Repo details which will be used by GitOps/Flux.
+      # Do not check-in git_access_token
+      gitops:
+        git_protocol: "https" # Option for git over https or ssh
+        git_url: "https://github.com/<Username>/blockchain-automation-framework.git"  # Gitops https or ssh url for flux value files 
+        git_ssh: "ssh://git@github.com/<Username>/blockchain-automation-framework.git"         # Gitops ssh url for flux value files 
+        branch: "local"                                                                 # Git branch where release is being made
+        release_dir: "platforms/hyperledger-fabric/releases/dev"                        # Relative Path in the Git repo for flux sync per environment. 
+        chart_source: "platforms/hyperledger-fabric/charts"                             # Relative Path where the Helm charts are stored in Git repo
+        git_repo: "github.com/<Username>/blockchain-automation-framework.git"       # Gitops https URL for git push  (without https://)
+        username: "<Username>"                                                     # Git user who has rights to check-in in all branches
+        password: "ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"          # Git Server user password/token (Optional for ssh; Required for https)
+        email: "tester@gmail..com"                                                           # Email to use in git config
+        private_key: "/home/blockchain-automation-framework/build/RTI_BLOCKCHAIN_GITOPS_SVC_ACC"              # Path to private key file which has write-access to the git repo
+
+      # The participating nodes are peers
+      # This organization hosts it's own CA server
+      services:
+        ca:
+          name: ca
+          subject: "/C=CH/ST=Zurich/L=Zurich/O=Provider/CN=ca.provider-net"
+          type: ca
+          grpc:
+            port: 7054
+        peers:
+        - peer:
+          name: peer0          
+          type: anchor                                    # This can be anchor/nonanchor. Atleast one peer should be anchor peer.         
+          gossippeeraddress: peer0.provider-net:7051  # Internal Address of the other peer in same Org for gossip, same peer if there is only one peer  
+          peerAddress: peer0.provider-net:7051        # Internal URI of the peer as this is for minikube
+          cli: enabled                                   # Creates a peer cli pod depending upon the (enabled/disabled) tag. 
+          grpc:
+            port: 7051         
+          events:
+            port: 7053
+          couchdb:
+            port: 5984
+          restserver:           # This is for the rest-api server
+            targetPort: 20001
+            port: 20001 
+          expressapi:           # This is for the express api server
+            targetPort: 3000
+            port: 3000

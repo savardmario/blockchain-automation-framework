@@ -3,8 +3,6 @@
 
 ## developer setup
 
-
-
 ## Clone forked repo
 
 1. If you have not already done so, fork [blockchain-automation-framework](https://github.com/hyperledger-labs/blockchain-automation-framework) and clone the forked repo to your machine.
@@ -86,41 +84,25 @@ minikube stop
    ```
 
 1. Copy RTI_BLOCKCHAIN_GITOPS_SVC_ACC file from ~/.ssh to build. (This is the private key file which you used to authenticate to your GitHub in pre-requisites)
+   
    ```bash
    cp ~/.ssh/RTI_BLOCKCHAIN_GITOPS_SVC_ACC build/
    ```
+1. Build Docker images
 
-docker build . -t baf-build-run
-docker build --file Dockerfile.reset . -t baf-build-reset
+   ```bash
+   docker build . -t baf-build-run
+   docker build --file Dockerfile.reset . -t baf-build-reset
+   ```
+1. Run HLF Setup/Installation
 
-docker run -it -v $(pwd):/home/blockchain-automation-framework/ baf-build-run
-docker run -it -v $(pwd):/home/blockchain-automation-framework/ baf-build-reset
+   ```bash
+   docker run -it -v $(pwd):/home/blockchain-automation-framework/ baf-build-run
+   ```
+1. Reset HLF Setup/Installation
 
-
-
-docker run --rm -it -v $(pwd):/home/blockchain-automation-framework/ baf-build-run:latest
-
-
-
-
-
-
-nohup kubectl port-forward service/peer0 -n customer-net 7051:7051 > nohup.out  2>&1 &
-
-
-k exec -it pods/peer0-cli-58445cb75-nkvjq -n customer-net -- /bin/bash
-
-
-kubectl cp /absolute/path/to/chaincode/drone-reservation-chaincode provider-net/peer0-cli-86c6476dc9-m772k:/drone-chaincode 
-
-kubectl cp /absolute/path/to/chaincode/drone-reservation-chaincode customer-net/peer0-cli-58445cb75-nkvjq:/drone-chaincode 
-
-
-
-kubectl exec -it peer0-cli-XXXXXXX -n customer-net -- /bin/bash 
-
-kubectl exec -it peer0-cli-XXXXXXX -n provider-net -- /bin/bash 
-
-
+   ```bash
+   docker run -it -v $(pwd):/home/blockchain-automation-framework/ baf-build-reset
+   ```
 
 
