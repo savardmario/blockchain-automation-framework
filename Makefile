@@ -27,12 +27,15 @@ reset-minikube:
 	cp /home/$(USER)/.minikube/profiles/minikube/client.key build/
 	cp /home/$(USER)/.minikube/profiles/minikube/client.crt build/
 
-start-vault:
+start-minikube:
+	minikube start --vm-driver=virtualbox --kubernetes-version=v1.20.7
+
+start-vault: stop-vault
 	envsubst < ./vault/config.hcl.tmpl > ./vault/config.hcl
 	nohup vault server -config=./vault/config.hcl > vault.out  2>&1 &
 
 stop-vault:
-	pkill vault
+	pkill vault > /dev/null 2>&1 || true
 
 run-hlf:
 	docker run -it -v $(pwd):/home/blockchain-automation-framework/ baf-build-run
