@@ -50,7 +50,7 @@
 # This task get the certificate for the cluster mentioned in k8 secret
 - name: "Get Kubernetes cert files for organizations"
   shell: |
-    KUBECONFIG={{ kubernetes.config_file }} kubectl -n {{ component_ns }} get secrets $(KUBECONFIG={{ kubernetes.config_file }} kubectl -n {{ component_ns }} get secrets | grep "default" | awk '{print $1}') -o jsonpath="{.data['ca\.crt']}" | base64 -d > "./build/{{ component_ns }}.ca.cert"
+    KUBECONFIG={{ kubernetes.config_file }} kubectl -n {{ component_ns }} get secrets $(KUBECONFIG={{ kubernetes.config_file }} kubectl -n {{ component_ns }} get secrets | grep default | awk '{print $1}') -o jsonpath="{.data['ca\.crt']}" | base64 -d > "./build/{{ component_ns }}.ca.cert"
   when: not vault_auth_status
 
 ################################################################################################

@@ -116,7 +116,7 @@ For final checking of the validity of the fabric network.
 - Get the CLI pod
   ```
   export ORG1_NS=<ORG_NAME>-net
-  export CLI=$(kubectl get po -n ${ORG1_NS} | grep "cli" | awk '{print $1}')
+  export CLI=$(kubectl get po -n ${ORG1_NS} | grep cli | awk '{print $1}')
   ```
 
 - Copy the CLI pod name from the output list and enter the CLI using.
