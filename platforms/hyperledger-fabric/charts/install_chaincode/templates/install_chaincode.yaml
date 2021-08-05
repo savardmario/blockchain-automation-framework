@@ -234,6 +234,11 @@ spec:
               export CORE_PEER_ADDRESS=${PEER0_ADDRESS}
               echo "Extracting package id"
               peer lifecycle chaincode queryinstalled > log.txt
+              cat log.txt
+              echo ${CC_NAME}
+              echo ${CC_VERSION}
+              echo ${CHAINCODE_NAME}
+              echo ${CHAINCODE_VERSION}
               PACKAGE_ID=$(cat log.txt | grep "${CHAINCODE_NAME}_${CHAINCODE_VERSION}" | sed -n "/${CC_NAME}_${CC_VERSION}/{s/^Package ID: //; s/, Label:.*$//; p;}")
               echo "Package Id Extracted ${PACKAGE_ID}"
               peer lifecycle chaincode getinstalledpackage --package-id ${PACKAGE_ID}
