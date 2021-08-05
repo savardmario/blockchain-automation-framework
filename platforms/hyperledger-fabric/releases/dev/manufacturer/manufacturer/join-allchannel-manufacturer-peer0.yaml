@@ -16,7 +16,7 @@ spec:
       namespace: manufacturer-net
       images:
         fabrictools: hyperledger/fabric-tools:2.2.0
-        alpineutils: hyperledgerlabs/alpine-utils:1.0
+        alpineutils: index.docker.io/hyperledgerlabs/alpine-utils:1.0
 
     peer:
       name: peer0
