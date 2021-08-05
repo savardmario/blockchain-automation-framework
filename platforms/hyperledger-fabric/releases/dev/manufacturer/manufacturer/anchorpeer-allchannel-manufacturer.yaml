@@ -16,7 +16,7 @@ spec:
       namespace: manufacturer-net
       images:
         fabrictools: hyperledger/fabric-tools:2.2.0
-        alpineutils: index.docker.io/hyperledgerlabs/alpine-utils:1.0
+        alpineutils: hyperledgerlabs/alpine-utils:1.0
 
     peer:
       name: peer0
@@ -39,10 +39,10 @@ spec:
     orderer:
       address: orderer1.supplychain-net:7050
     anchorstx: |-
-      CscCChgKFggCGgYI89ywiAYiCmFsbGNoYW5uZWwSqgIKpwIKCmFsbGNoYW5uZWwSaBJmCgtBcHBs
+      CscCChgKFggCGgYIr/qwiAYiCmFsbGNoYW5uZWwSqgIKpwIKCmFsbGNoYW5uZWwSaBJmCgtBcHBs
       aWNhdGlvbhJXCAESUwoPbWFudWZhY3R1cmVyTVNQEkAaBwoDTVNQEgAiCgoGQWRtaW5zEgAiDwoL
       RW5kb3JzZW1lbnQSACILCgdSZWFkZXJzEgAiCwoHV3JpdGVycxIAGq4BEqsBCgtBcHBsaWNhdGlv
-      bhKbAQgBEpYBCg9tYW51ZmFjdHVyZXJNU1ASggEIARo2CgtBbmNob3JQZWVycxInEh0KGwoWcGVl
-      cjAubWFudWZhY3R1cmVyLW5ldBCLNxoGQWRtaW5zGgcKA01TUBIAIgoKBkFkbWlucxIAIg8KC0Vu
+      bhKbAQgBEpYBCg9tYW51ZmFjdHVyZXJNU1ASggEIARoHCgNNU1ASABo2CgtBbmNob3JQZWVycxIn
+      Eh0KGwoWcGVlcjAubWFudWZhY3R1cmVyLW5ldBCLNxoGQWRtaW5zIgoKBkFkbWlucxIAIg8KC0Vu
       ZG9yc2VtZW50EgAiCwoHUmVhZGVycxIAIgsKB1dyaXRlcnMSACoGQWRtaW5z
 
