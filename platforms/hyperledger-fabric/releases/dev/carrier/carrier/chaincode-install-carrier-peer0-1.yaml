@@ -46,7 +46,7 @@ spec:
       repository:
         hostname: "github.com"
         git_username: "MChorfa"
-        url: github.com/MChorfa/blockchain-automation-framework.gitt
+        url: github.com/MChorfa/blockchain-automation-framework.git
         branch: aks
         path: examples/supplychain-app/fabric/chaincode_rest_server/chaincode/
       endorsementpolicies:  ''
