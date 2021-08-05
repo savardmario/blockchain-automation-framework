@@ -38,15 +38,15 @@ spec:
     orderer:
       address: orderer1.supplychain-net:7050
     chaincode:
-      builder: hyperledger/fabric-ccenv:2.2.0
-      name: fabcar
+      builder: hyperledger/fabric-ccenv:2.3
+      name: external
       version: 1
       lang: golang
-      maindirectory: go
+      maindirectory: "external"
       repository:
         hostname: "github.com"
         git_username: "MChorfa"
         url: github.com/hyperledger/fabric-samples.git
         branch: main
-        path: chaincode/fabcar/
+        path: chaincode/fabcar/external
       endorsementpolicies:  ''
