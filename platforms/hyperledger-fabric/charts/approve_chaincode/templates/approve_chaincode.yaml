@@ -160,13 +160,13 @@ spec:
             ## approve for myorg
             echo "peer query approve without endorsement"
             peer lifecycle chaincode approveformyorg -o ${ORDERER_URL} --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME} \
-              --name ${CHAINCODE_NAME} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence {{ $.Values.chaincode.sequence }} \
+              --name ${CHAINCODE_NAME} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 \
               --init-required > log.txt
           else
             ## approve for myorg
             echo "peer query approve with endorsement policies"
             peer lifecycle chaincode approveformyorg -o ${ORDERER_URL} --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} --channelID ${CHANNEL_NAME} \
-              --name ${CHAINCODE_NAME} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence {{ $.Values.chaincode.sequence }} \
+              --name ${CHAINCODE_NAME} --version ${CHAINCODE_VERSION} --package-id ${PACKAGE_ID} --sequence 1 \
               --init-required --signature-policy {{ $.Values.chaincode.endorsementpolicies | quote }} > log.txt  
           fi
           
