@@ -16,7 +16,7 @@ spec:
       namespace: carrier-net
       images:
         fabrictools: hyperledger/fabric-tools:2.2.0
-        alpineutils: index.docker.io/hyperledgerlabs/alpine-utils:1.0
+        alpineutils: hyperledgerlabs/alpine-utils:1.0
     peer:
       name: peer0
       address: peer0.carrier-net:7051
