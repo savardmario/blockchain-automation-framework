@@ -39,7 +39,7 @@ spec:
       name: supplychain
       version: 1
       sequence: 1
-      commitarguments: '\"init\",\"\"'
+      commitarguments: '\"init\",\"\",\"sequence\",1'
       endorsementpolicies:  ''
     channel:
       name: allchannel
