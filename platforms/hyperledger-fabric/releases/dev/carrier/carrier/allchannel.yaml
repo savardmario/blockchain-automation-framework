@@ -18,7 +18,7 @@ spec:
         version 2.2.0
       images:
         fabrictools: hyperledger/fabric-tools:2.2.0
-        alpineutils: hyperledgerlabs/alpine-utils:1.0
+        alpineutils: index.docker.io/hyperledgerlabs/alpine-utils:1.0
     peer:
       name: peer0
       address: peer0.carrier-net:7051
@@ -40,8 +40,8 @@ spec:
     orderer:
       address: orderer1.supplychain-net:7050
     channeltx: |-
-      CtkDChgKFggCGgYI1u+0iAYiCmFsbGNoYW5uZWwSvAMKuQMKCmFsbGNoYW5uZWwSRhI0CgtBcHBs
-      aWNhdGlvbhIlEhMKD21hbnVmYWN0dXJlck1TUBIAEg4KCmNhcnJpZXJNU1ASABoOCgpDb25zb3J0
+      CtkDChgKFggCGgYIvP20iAYiCmFsbGNoYW5uZWwSvAMKuQMKCmFsbGNoYW5uZWwSRhI0CgtBcHBs
+      aWNhdGlvbhIlEg4KCmNhcnJpZXJNU1ASABITCg9tYW51ZmFjdHVyZXJNU1ASABoOCgpDb25zb3J0
       aXVtEgAa4gIStgIKC0FwcGxpY2F0aW9uEqYCCAESDgoKY2Fycmllck1TUBIAEhMKD21hbnVmYWN0
       dXJlck1TUBIAGiQKDENhcGFiaWxpdGllcxIUEgoKCAoEVjJfMBIAGgZBZG1pbnMiIgoGQWRtaW5z
       EhgSDggDEgoKBkFkbWlucxACGgZBZG1pbnMiLAoLRW5kb3JzZW1lbnQSHRITCAMSDwoLRW5kb3Jz
