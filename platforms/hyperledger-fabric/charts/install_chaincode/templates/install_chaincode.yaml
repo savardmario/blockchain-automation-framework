@@ -226,6 +226,12 @@ spec:
             echo "Chaincode installed for Fabric v.1.4.X"         
           else
             echo "Installing Chaincode for ${NETWORK_VERSION}"
+            echo ===================================DEBUG=======================================
+            echo ${CC_SRC_PATH}
+            echo ${CC_RUNTIME_LANGUAGE}
+            echo ${CHAINCODE_NAME}
+            echo ===================================DEBUG=======================================
+            
             if [ $PEER_NAME = "peer0" ];then
               ## packaging chaincode
               echo "Packaging chaincode for the first peer"
@@ -234,11 +240,14 @@ spec:
               export CORE_PEER_ADDRESS=${PEER0_ADDRESS}
               echo "Extracting package id"
               peer lifecycle chaincode queryinstalled > log.txt
+              echo ===================================DEBUG=======================================
               echo log.txt
               echo ${CC_NAME}
               echo ${CC_VERSION}
               echo ${CHAINCODE_NAME}
               echo ${CHAINCODE_VERSION}
+              echo ===================================DEBUG=======================================
+
               PACKAGE_ID=$(cat log.txt | grep "${CHAINCODE_NAME}_${CHAINCODE_VERSION}" | sed -n "/${CC_NAME}_${CC_VERSION}/{s/^Package ID: //; s/, Label:.*$//; p;}")
               echo "Package Id Extracted ${PACKAGE_ID}"
               peer lifecycle chaincode getinstalledpackage --package-id ${PACKAGE_ID}

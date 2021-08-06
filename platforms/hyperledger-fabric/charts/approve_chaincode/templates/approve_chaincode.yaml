@@ -157,7 +157,7 @@ spec:
           echo ${CHAINCODE_NAME}
           echo ${CHAINCODE_VERSION}
           
-          PACKAGE_ID=$(cat log.txt | grep "${CHAINCODE_NAME}_${CHAINCODE_VERSION}" | sed -n "/${CC_NAME}_${CC_VERSION}/{s/^Package ID: //; s/, Label:.*$//; p;}")
+          PACKAGE_ID=$(cat log.txt | grep "${CHAINCODE_NAME}_${CHAINCODE_VERSION}" | sed -n "/${CHAINCODE_NAME}_${CHAINCODE_VERSION}/{s/^Package ID: //; s/, Label:.*$//; p;}")
           echo "Package Id Extracted ${PACKAGE_ID}"
 
           echo "Endorsing policy:${ENDORSEMENT_POLICIES}"
