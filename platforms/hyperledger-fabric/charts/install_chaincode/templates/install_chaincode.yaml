@@ -37,6 +37,9 @@ spec:
       - name: certificates
         emptyDir:
           medium: Memory
+      - name: transfer-pv
+        persistentVolumeClaim:
+          claimName: k8scc-transfer-pv # this is our default claim name for transfer PVs
       initContainers:
       - name: certificates-init
         image: {{ $.Values.metadata.images.alpineutils }}
@@ -140,7 +143,7 @@ spec:
           validateVaultResponse "secret (${vault_secret_key})" "${LOOKUP_SECRET_RESPONSE}" "LOOKUPSECRETRESPONSE"
           VALUE_OF_SECRET=$(echo ${LOOKUP_SECRET_RESPONSE} | jq -r ".data[\"${vault_data_key}\"]")         
           echo "${VALUE_OF_SECRET}" >> ${MOUNT_PATH}/user_cred
-
+          echo "{\"address\":\"${CHAINCODE_NAME}.carrier-net:7052\",\"dial_timeout\":\"10s\",\"tls_required\":false,\"client_auth_required\":false,\"client_key\":\"${KEYSTORE}\","client_cert":\"${ADMINCERT}\","root_cert":\"${CACERTS}\"}" >> ${MOUNT_PATH}/connection.json
         volumeMounts:
         {{ if .Values.vault.tls  }}
         - name: vaultca
@@ -235,11 +238,6 @@ spec:
             if [ $PEER_NAME = "peer0" ];then
               ## packaging chaincode
               echo "Packaging chaincode for the first peer"
-              peer lifecycle chaincode package ${CHAINCODE_NAME}.tar.gz --path ${CC_SRC_PATH} --lang ${CC_RUNTIME_LANGUAGE} --label ${CHAINCODE_NAME}_${CHAINCODE_VERSION}
-            else
-              export CORE_PEER_ADDRESS=${PEER0_ADDRESS}
-              echo "Extracting package id"
-              peer lifecycle chaincode queryinstalled > log.txt
               echo ===================================DEBUG=======================================
               echo log.txt
               echo ${CC_NAME}
@@ -247,7 +245,13 @@ spec:
               echo ${CHAINCODE_NAME}
               echo ${CHAINCODE_VERSION}
               echo ===================================DEBUG=======================================
+              tar cfz ${CHAINCODE_NAME}.tar.gz /opt/gopath/src/github.com/hyperledger/fabric/crypto/connection.json
+              peer lifecycle chaincode package ${CHAINCODE_NAME}.tar.gz --path ${CC_SRC_PATH} --lang ${CC_RUNTIME_LANGUAGE} --label ${CHAINCODE_NAME}_${CHAINCODE_VERSION} --type ${CHAINCODE_TYPE}
 
+            else
+              export CORE_PEER_ADDRESS=${PEER0_ADDRESS}
+              echo "Extracting package id"
+              peer lifecycle chaincode queryinstalled > log.txt
               PACKAGE_ID=$(cat log.txt | grep "${CHAINCODE_NAME}_${CHAINCODE_VERSION}" | sed -n "/${CC_NAME}_${CC_VERSION}/{s/^Package ID: //; s/, Label:.*$//; p;}")
               echo "Package Id Extracted ${PACKAGE_ID}"
               peer lifecycle chaincode getinstalledpackage --package-id ${PACKAGE_ID}
@@ -295,6 +299,8 @@ spec:
           value: "{{ $.Values.chaincode.maindirectory }}"
         - name: CHAINCODE_VERSION
           value: "{{ $.Values.chaincode.version }}"
+        - name: CHAINCODE_TYPE
+          value: "{{ $.Values.chaincode.type }}"
         - name: CORE_CHAINCODE_BUILDER
           value: "{{ $.Values.chaincode.builder }}"
         - name: NETWORK_VERSION
@@ -305,3 +311,17 @@ spec:
         - name: certificates
           mountPath: /opt/gopath/src/github.com/hyperledger/fabric/crypto
           readOnly: true
+        - name: transfer-pv
+            - mountPath: /var/lib/k8scc/transfer/              # here we mount our transfer PV
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: k8scc-transfer-pv
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: azurefile

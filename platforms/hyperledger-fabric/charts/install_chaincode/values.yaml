@@ -77,7 +77,7 @@ orderer:
 chaincode:
   #Provide a valid chaincode builder image for Fabric
   #Eg. builder: hyperledger/fabric-ccenv:1.4.8
-  builder:
+  builder: postfinance/hlfabric-k8scc:2.2.1-k8scc0.0.8
   #Provide the name of the chaincode to be installed
   #Eg. name: cc
   name:

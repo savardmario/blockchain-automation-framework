@@ -103,7 +103,7 @@ minikube stop
 1. Run HLF Setup/Installation
 
    ```bash
-   docker run -it -v $(pwd):/home/blockchain-automation-framework/ baf-build-run
+   docker run -it -v $(pwd):/home/blockchain-automation-framework/ -v /var/run/docker.sock:/var/run/docker.sock baf-build-run
    ```
 1. Reset HLF Setup/Installation
 
