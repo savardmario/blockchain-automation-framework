@@ -312,7 +312,7 @@ spec:
           mountPath: /opt/gopath/src/github.com/hyperledger/fabric/crypto
           readOnly: true
         - name: transfer-pv
-            - mountPath: /var/lib/k8scc/transfer/              # here we mount our transfer PV
+          mountPath: /var/lib/k8scc/transfer/              # here we mount our transfer PV
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
