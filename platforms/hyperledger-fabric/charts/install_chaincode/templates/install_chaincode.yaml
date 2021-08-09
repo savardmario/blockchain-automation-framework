@@ -154,7 +154,8 @@ spec:
           mountPath: /secret
       containers:
       - name: installchaincode
-        image: {{ $.Values.metadata.images.fabrictools }}
+        image: postfinance/hlfabric-k8scc:2.2.1-k8scc0.0.8 
+        #{{ $.Values.metadata.images.fabrictools }}
         imagePullPolicy: Always
         stdin: true
         tty: true
@@ -245,8 +246,7 @@ spec:
               echo ${CHAINCODE_NAME}
               echo ${CHAINCODE_VERSION}
               echo ===================================DEBUG=======================================
-              tar cfz ${CHAINCODE_NAME}.tar.gz /opt/gopath/src/github.com/hyperledger/fabric/crypto/connection.json
-              peer lifecycle chaincode package ${CHAINCODE_NAME}.tar.gz --path ${CC_SRC_PATH} --lang ${CC_RUNTIME_LANGUAGE} --label ${CHAINCODE_NAME}_${CHAINCODE_VERSION} --type ${CHAINCODE_TYPE}
+              peer lifecycle chaincode package ${CHAINCODE_NAME}.tar.gz --path ${CC_SRC_PATH} --lang ${CC_RUNTIME_LANGUAGE} --label ${CHAINCODE_NAME}_${CHAINCODE_VERSION}
 
             else
               export CORE_PEER_ADDRESS=${PEER0_ADDRESS}
@@ -260,7 +260,10 @@ spec:
               echo "installing ${CHAINCODE_NAME} on ${CORE_PEER_ADDRESS}"
             fi
             ## Installing Chaincode
-            peer lifecycle chaincode install ${CHAINCODE_NAME}.tar.gz
+            echo "{\"path\":\"${CC_SRC_PATH}\",\"type\":\"${CHAINCODE_TYPE}\",\"label\":\"${CHAINCODE_NAME}_${CHAINCODE_VERSION}\"}" >> metadata.json
+            tar cfz ${CHAINCODE_NAME}.tar.gz /opt/gopath/src/github.com/hyperledger/fabric/crypto/connection.json
+            tar cfz ${CHAINCODE_NAME}-${CHAINCODE_NAME}.tgz ${CHAINCODE_NAME}.tar.gz ./metadata.json
+            peer lifecycle chaincode install ${CHAINCODE_NAME}-${CHAINCODE_NAME}.tgz
             echo "Chaincode installed for Fabric v.2.X"
             #query installed
             echo "peer query installed"
