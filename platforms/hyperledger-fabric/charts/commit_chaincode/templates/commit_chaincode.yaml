@@ -223,8 +223,8 @@ spec:
             eval ${COMMIT_CMD}
           fi
         env:
-        - name: CORE_VM_ENDPOINT
-          value: unix:///host/var/run/docker.sock
+        # - name: CORE_VM_ENDPOINT
+        #   value: unix:///host/var/run/docker.sock
         - name: FABRIC_LOGGING_SPEC
           value: {{ $.Values.peer.loglevel }}
         - name: CORE_PEER_ID

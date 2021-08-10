@@ -153,8 +153,8 @@ spec:
             peer chaincode invoke -o ${ORDERER_URL} --tls ${CORE_PEER_TLS_ENABLED} --cafile ${ORDERER_CA} -C ${CHANNEL_NAME} -n ${CHAINCODE_NAME}  -c '{"Args":['${ARGUMENTS}']}'
           {{ end }}
         env:
-        - name: CORE_VM_ENDPOINT
-          value: unix:///host/var/run/docker.sock
+        # - name: CORE_VM_ENDPOINT
+        #   value: unix:///host/var/run/docker.sock
         - name: FABRIC_LOGGING_SPEC
           value: {{ $.Values.peer.loglevel }}
         - name: CORE_PEER_ID

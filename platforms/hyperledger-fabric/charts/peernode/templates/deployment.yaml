@@ -248,3 +248,14 @@ spec:
       - name: datadir-couchdb
         persistentVolumeClaim:
           claimName: {{ $.Values.peer.name }}-db-volume
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: peer0.org2.example.com
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
