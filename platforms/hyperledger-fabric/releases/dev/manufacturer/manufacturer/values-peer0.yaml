@@ -30,12 +30,12 @@ spec:
       couchdb:
         username: manufacturer-user
       externalBuilders:
-        - name: "k8scc"
-        path: /opt/k8scc/
-        propagateEnvironment:
-        - KUBERNETES_SERVICE_HOST
-        - KUBERNETES_SERVICE_PORT
-        - K8SCC_CFGFILE
+          - name: "k8scc"
+            path: /opt/k8scc/
+            propagateEnvironment:
+            - KUBERNETES_SERVICE_HOST
+            - KUBERNETES_SERVICE_PORT
+            - K8SCC_CFGFILE
     storage:
       peer:
         storageclassname: manufacturersc
