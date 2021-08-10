@@ -224,8 +224,8 @@ spec:
         - name: {{ $.Values.peer.name }}-msp-config-volume
           mountPath: /etc/hyperledger/fabric/NodeOUconfig
           readOnly: true
-          name: transfer-pv
-        - mountPath: /var/hyperledger/production/
+        - name: transfer-pv
+          mountPath: /var/lib/k8scc/transfer/
       volumes:
       {{ if .Values.vault.tls  }}
       - name: vaultca
