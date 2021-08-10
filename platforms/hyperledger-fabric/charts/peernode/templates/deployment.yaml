@@ -217,8 +217,8 @@ spec:
         volumeMounts:
         - name: datadir
           mountPath: /var/hyperledger/production
-        - name: dockersocket
-          mountPath: /host/var/run/docker.sock
+        # - name: dockersocket
+        #   mountPath: /host/var/run/docker.sock
         - name: certificates
           mountPath: /etc/hyperledger/fabric/crypto
         - name: {{ $.Values.peer.name }}-msp-config-volume
@@ -238,9 +238,9 @@ spec:
       - name: certificates
         emptyDir:
           medium: Memory
-      - name: dockersocket
-        hostPath:
-          path: /var/run/docker.sock
+      # - name: dockersocket
+      #   hostPath:
+      #     path: /var/run/docker.sock
       - name: {{ $.Values.peer.name }}-msp-config-volume
         configMap:
           name: {{ $.Values.peer.name }}-msp-config
