@@ -310,6 +310,8 @@ spec:
           value: "{{ $.Values.metadata.network.version }}"
         - name: CC_RUNTIME_LANGUAGE
           value: "{{ $.Values.chaincode.lang }}"
+        - name: K8SCC_CFGFILE
+          value: "/opt/k8scc/k8scc.yaml"
         volumeMounts:
         - name: certificates
           mountPath: /opt/gopath/src/github.com/hyperledger/fabric/crypto
