@@ -48,5 +48,5 @@ spec:
         git_username: "MChorfa"
         url: github.com/MChorfa/blockchain-automation-framework.git
         branch: aks
-        path: examples/chaincode/fabcar 
+        path: examples/chaincode/fabcar
       endorsementpolicies:  ''
