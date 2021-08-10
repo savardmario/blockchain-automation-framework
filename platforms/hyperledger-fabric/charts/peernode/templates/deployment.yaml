@@ -211,6 +211,9 @@ spec:
         envFrom:
         - configMapRef:
             name: {{ $.Values.peer.name }}-config
+        env:
+          - name: K8SCC_CFGFILE
+            value: "/opt/k8scc/k8scc.yaml"
         volumeMounts:
         - name: datadir
           mountPath: /var/hyperledger/production
@@ -221,6 +224,8 @@ spec:
         - name: {{ $.Values.peer.name }}-msp-config-volume
           mountPath: /etc/hyperledger/fabric/NodeOUconfig
           readOnly: true
+          name: transfer-pv
+        - mountPath: /var/hyperledger/production/
       volumes:
       {{ if .Values.vault.tls  }}
       - name: vaultca
@@ -248,15 +253,6 @@ spec:
       - name: datadir-couchdb
         persistentVolumeClaim:
           claimName: {{ $.Values.peer.name }}-db-volume
-
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  name: peer0.org2.example.com
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 1Gi
+      - name: transfer-pv
+        persistentVolumeClaim:
+          claimName: k8scc-transfer-pv
