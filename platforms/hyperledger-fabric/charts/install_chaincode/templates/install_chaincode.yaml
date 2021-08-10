@@ -154,8 +154,7 @@ spec:
           mountPath: /secret
       containers:
       - name: installchaincode
-        image: chorfa672m/hlfabrick8scc:v0.1.0
-        #{{ $.Values.metadata.images.fabrictools }}
+        image: {{ $.Values.metadata.images.fabrictools }}
         imagePullPolicy: Always
         stdin: true
         tty: true
@@ -276,8 +275,6 @@ spec:
           value: peer0.{{ $.Values.metadata.namespace }}:7051
         - name: PEER_ADDRESS
           value: {{ $.Values.peer.address }}
-        - name: CORE_VM_ENDPOINT
-          value: unix:///host/var/run/docker.sock
         - name: FABRIC_LOGGING_SPEC
           value: {{ $.Values.peer.loglevel }}
         - name: CORE_PEER_ID
