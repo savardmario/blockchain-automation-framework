@@ -16,7 +16,7 @@ spec:
       namespace: manufacturer-net
       images:
         couchdb: couchdb:3.1
-        peer: hyperledger/fabric-peer:2.2.0
+        peer: postfinance/hlfabric-k8scc:2.2.1-k8scc0.0.8
         alpineutils: index.docker.io/hyperledgerlabs/alpine-utils:1.0
         
     peer:
@@ -29,7 +29,13 @@ spec:
       builder: hyperledger/fabric-ccenv:2.2.0
       couchdb:
         username: manufacturer-user
-
+      externalBuilders:
+        - name: "k8scc"
+        path: /opt/k8scc/
+        propagateEnvironment:
+        - KUBERNETES_SERVICE_HOST
+        - KUBERNETES_SERVICE_PORT
+        - K8SCC_CFGFILE
     storage:
       peer:
         storageclassname: manufacturersc
