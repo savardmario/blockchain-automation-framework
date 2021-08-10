@@ -154,7 +154,7 @@ spec:
           mountPath: /secret
       containers:
       - name: installchaincode
-        image: postfinance/hlfabric-k8scc:2.2.1-k8scc0.0.8 
+        image: chorfa672m/hlfabrick8scc:v0.1.0
         #{{ $.Values.metadata.images.fabrictools }}
         imagePullPolicy: Always
         stdin: true

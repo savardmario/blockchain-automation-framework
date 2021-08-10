@@ -42,11 +42,10 @@ spec:
       name: supplychain
       version: 1
       lang: golang
-      maindirectory: cmd
       repository:
         hostname: "github.com"
         git_username: "MChorfa"
         url: github.com/MChorfa/blockchain-automation-framework.git
         branch: cloud
-        path: examples/supplychain-app/fabric/chaincode_rest_server/chaincode/
+        path: examples/chaincode/fabcar/external
       endorsementpolicies:  ''
