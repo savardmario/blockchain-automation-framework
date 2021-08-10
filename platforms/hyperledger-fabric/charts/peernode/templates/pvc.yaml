@@ -51,3 +51,16 @@ spec:
   resources:
     requests:
       storage: {{ .Values.storage.peer.storagesize }}
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: k8scc-transfer-pv
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: azurefile
