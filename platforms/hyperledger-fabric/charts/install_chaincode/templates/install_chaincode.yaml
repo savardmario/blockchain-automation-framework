@@ -177,12 +177,15 @@ spec:
             cp -R /tmp/chaincode/{{ $.Values.chaincode.repository.path }}/* $GOPATH/src/github.com/chaincode/
 
             # Get dependencies
-            mkdir -p $GOPATH/bin && curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-            cd $GOPATH/src/github.com/chaincode && dep ensure
+            # mkdir -p $GOPATH/bin && curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+            # cd $GOPATH/src/github.com/chaincode && dep ensure
 
             #chaincode path
-            CC_SRC_PATH="github.com/chaincode/${CHAINCODE_NAME}/${CHAINCODE_MAINDIR}"
-            
+            CC_SRC_PATH="$GOPATH/src/github.com/chaincode/"
+            cd $CC_SRC_PATH
+            go mod tidy 
+            go mod vendor  
+
           elif [ ${CC_RUNTIME_LANGUAGE} = "java" ]
           then
             ## Copying desired chaincode to a location 
