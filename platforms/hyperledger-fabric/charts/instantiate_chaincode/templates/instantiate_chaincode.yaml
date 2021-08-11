@@ -155,7 +155,7 @@ spec:
           {{ end }}
         env:
         # - name: CORE_VM_ENDPOINT
-        #   value: unix:///host/run/containerd/containerd.sock
+        #   value: "unix:///host/run/containerd/containerd.sock"
         - name: FABRIC_LOGGING_SPEC
           value: {{ $.Values.peer.loglevel }}
         - name: CORE_PEER_ID

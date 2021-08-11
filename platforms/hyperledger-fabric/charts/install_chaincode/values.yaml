@@ -8,7 +8,7 @@ metadata:
   images:
     #Provide the valid image name and version for fabric tools
     #Eg. fabrictools:  hyperledger/fabric-tools:1.4.0
-    fabrictools: hyperledger/fabric-tools:2.3
+    fabrictools: hyperledger/fabric-tools:2.2.1
     #Provide the valid image name and version to read certificates from vault server
     #Eg.alpineutils: hyperledgerlabs/alpine-utils:1.0
     alpineutils: hyperledgerlabs/alpine-utils:1.0
@@ -31,7 +31,7 @@ peer:
   localmspid:
   #Provide the loglevel for organization's peer
   #Eg. loglevel: info
-  loglevel: info
+  loglevel: debug
   #Provide the value for tlsstatus to be true or false for organization's peer
   #Eg. tlsstatus: true
   tlsstatus:

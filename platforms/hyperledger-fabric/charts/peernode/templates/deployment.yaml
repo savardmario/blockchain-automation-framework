@@ -214,6 +214,8 @@ spec:
         - configMapRef:
             name: {{ $.Values.peer.name }}-config
         env:
+        # - name: CORE_VM_ENDPOINT
+        #   value: "unix:///host/run/containerd/containerd.sock"
         - name: FABRIC_LOGGING_SPEC
           value: "DEBUG:msp.identity=INFO"
         - name: CORE_PEER_LISTENADDRESS
