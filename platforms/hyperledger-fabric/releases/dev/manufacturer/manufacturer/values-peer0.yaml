@@ -16,7 +16,7 @@ spec:
       namespace: manufacturer-net
       images:
         couchdb: couchdb:3.1
-        peer: chorfa672m/hlfabrick8scc:v0.2.0
+        peer: postfinance/hlfabric-k8scc:2.2.1-k8scc0.0.8
         alpineutils: hyperledgerlabs/alpine-utils:1.0
         
     peer:
