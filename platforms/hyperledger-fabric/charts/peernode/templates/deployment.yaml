@@ -208,12 +208,22 @@ spec:
           containerPort: 7051
         - name: events
           containerPort: 7053
+        - containerPort: 7052
+        - containerPort: 9443
         envFrom:
         - configMapRef:
             name: {{ $.Values.peer.name }}-config
         env:
-          - name: K8SCC_CFGFILE
-            value: "/opt/k8scc/k8scc.yaml"
+        - name: FABRIC_LOGGING_SPEC
+          value: "DEBUG:msp.identity=INFO"
+        - name: CORE_PEER_LISTENADDRESS
+          value: "0.0.0.0:7051"
+        - name: CORE_PEER_CHAINCODELISTENADDRESS
+          value: "0.0.0.0:7052"
+        - name: CORE_PEER_TLS_ENABLED
+          value: "true"
+        - name: K8SCC_CFGFILE
+          value: "/opt/k8scc/k8scc.yaml"
         volumeMounts:
         - name: datadir
           mountPath: /var/hyperledger/production
