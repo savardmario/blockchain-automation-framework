@@ -195,8 +195,7 @@ spec:
 
           for item in $ENDORSING_ORG_NAMES
           do
-            path="/opt/gopath/src/github.com/hyperledger/fabric/crypto/tls/ca.crt"
-            # path="/opt/gopath/src/github.com/hyperledger/fabric/crypto/endorsers/${item}/msp/cacerts/ca.crt"
+            path="/opt/gopath/src/github.com/hyperledger/fabric/crypto/endorsers/${item}/msp/cacerts/ca.crt"
             COMMIT_CMD=${COMMIT_CMD}" --tlsRootCertFiles "${path}
           done
 
