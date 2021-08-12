@@ -237,19 +237,11 @@ spec:
             echo "Chaincode installed for Fabric v.1.4.X"         
           else
             echo "Installing Chaincode for ${NETWORK_VERSION}"
-            echo ===================================DEBUG=======================================
-            echo ${CC_SRC_PATH}
-            echo ${CC_RUNTIME_LANGUAGE}
-            echo ${CHAINCODE_NAME}
-            echo ===================================DEBUG=======================================
             
             if [ $PEER_NAME = "peer0" ];then
               ## packaging chaincode
               echo "Packaging chaincode for the first peer"
               echo ===================================DEBUG=======================================
-              echo log.txt
-              echo ${CC_NAME}
-              echo ${CC_VERSION}
               echo ${CHAINCODE_NAME}
               echo ${CHAINCODE_VERSION}
               echo ===================================DEBUG=======================================
@@ -259,8 +251,9 @@ spec:
               export CORE_PEER_ADDRESS=${PEER0_ADDRESS}
               echo "Extracting package id"
               peer lifecycle chaincode queryinstalled > log.txt
-              PACKAGE_ID=$(cat log.txt | grep "${CHAINCODE_NAME}_${CHAINCODE_VERSION}" | sed -n "/${CC_NAME}_${CC_VERSION}/{s/^Package ID: //; s/, Label:.*$//; p;}")
-              echo "Package Id Extracted ${PACKAGE_ID}"
+              cat log.txt
+              PACKAGE_ID=$(cat log.txt | grep "${CHAINCODE_NAME}_${CHAINCODE_VERSION}" | sed -n "/${CHAINCODE_NAME}_${CHAINCODE_VERSION}/{s/^Package ID: //; s/, Label:.*$//; p;}")
+              echo "Package Id Extracted >>>>>> ${PACKAGE_ID} <<<<<<"
               peer lifecycle chaincode getinstalledpackage --package-id ${PACKAGE_ID}
               export CORE_PEER_ADDRESS=${PEER_ADDRESS}
               export CHAINCODE_NAME=${PACKAGE_ID}
@@ -268,9 +261,13 @@ spec:
             fi
             ## Installing Chaincode
             echo "{\"path\":\"${CC_SRC_PATH}\",\"type\":\"${CHAINCODE_TYPE}\",\"label\":\"${CHAINCODE_NAME}_${CHAINCODE_VERSION}\"}" >> metadata.json
+            cat metadata.json
             # tar cfz ${CHAINCODE_NAME}.tar.gz /opt/gopath/src/github.com/hyperledger/fabric/crypto/connection.json
-            tar cfz ${CHAINCODE_NAME}-${CHAINCODE_NAME}.tgz ${CHAINCODE_NAME}.tar.gz ./metadata.json
-            peer lifecycle chaincode install ${CHAINCODE_NAME}-${CHAINCODE_NAME}.tgz
+            echo ======>> packaging-with-metadata
+            tar cfz ${CHAINCODE_NAME}-METADATA.tgz ${CHAINCODE_NAME}.tar.gz ./metadata.json
+            echo ======>> packaging-with-metadata
+            peer lifecycle chaincode install ${CHAINCODE_NAME}-METADATA.tgz
+            echo ======>> installing-with-metadata
             echo "Chaincode installed for Fabric v.2.X"
             #query installed
             echo "peer query installed"
