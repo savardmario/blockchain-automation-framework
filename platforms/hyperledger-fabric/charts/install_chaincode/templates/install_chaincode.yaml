@@ -181,13 +181,14 @@ spec:
             # cd $GOPATH/src/github.com/chaincode && dep ensure
 
             #chaincode path
-            CC_SRC_PATH="/$GOPATH/src/github.com/chaincode/"
-            cd /$GOPATH/src/github.com/chaincode/
+            CC_SRC_PATH="$GOPATH/src/github.com/chaincode/"
+            cd $GOPATH/src/github.com/chaincode/
             echo "CC_SRC_PATH= $CC_SRC_PATH"
             current_path=`pwd`
             echo $current_path
-            go mod tidy 
-            go mod vendor  
+            #chaincode build
+            go mod tidy
+            go mod vendor
             echo $CC_SRC_PATH
 
           elif [ ${CC_RUNTIME_LANGUAGE} = "java" ]
