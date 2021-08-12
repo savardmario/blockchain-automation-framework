@@ -181,10 +181,14 @@ spec:
             # cd $GOPATH/src/github.com/chaincode && dep ensure
 
             #chaincode path
-            CC_SRC_PATH="$GOPATH/src/github.com/chaincode/"
-            cd $CC_SRC_PATH
+            CC_SRC_PATH="/$GOPATH/src/github.com/chaincode/"
+            cd /$GOPATH/src/github.com/chaincode/
+            echo "CC_SRC_PATH= $CC_SRC_PATH"
+            current_path=`pwd`
+            echo $current_path
             go mod tidy 
             go mod vendor  
+            echo $CC_SRC_PATH
 
           elif [ ${CC_RUNTIME_LANGUAGE} = "java" ]
           then
@@ -263,7 +267,7 @@ spec:
             fi
             ## Installing Chaincode
             echo "{\"path\":\"${CC_SRC_PATH}\",\"type\":\"${CHAINCODE_TYPE}\",\"label\":\"${CHAINCODE_NAME}_${CHAINCODE_VERSION}\"}" >> metadata.json
-            tar cfz ${CHAINCODE_NAME}.tar.gz /opt/gopath/src/github.com/hyperledger/fabric/crypto/connection.json
+            # tar cfz ${CHAINCODE_NAME}.tar.gz /opt/gopath/src/github.com/hyperledger/fabric/crypto/connection.json
             tar cfz ${CHAINCODE_NAME}-${CHAINCODE_NAME}.tgz ${CHAINCODE_NAME}.tar.gz ./metadata.json
             peer lifecycle chaincode install ${CHAINCODE_NAME}-${CHAINCODE_NAME}.tgz
             echo "Chaincode installed for Fabric v.2.X"
