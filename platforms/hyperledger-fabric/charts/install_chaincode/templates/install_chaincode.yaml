@@ -260,14 +260,8 @@ spec:
               echo "installing ${CHAINCODE_NAME} on ${CORE_PEER_ADDRESS}"
             fi
             ## Installing Chaincode
-            echo "{\"path\":\"${CC_SRC_PATH}\",\"type\":\"${CHAINCODE_TYPE}\",\"label\":\"${CHAINCODE_NAME}_${CHAINCODE_VERSION}\"}" >> metadata.json
-            cat metadata.json
-            # tar cfz ${CHAINCODE_NAME}.tar.gz /opt/gopath/src/github.com/hyperledger/fabric/crypto/connection.json
-            echo ======>> packaging-with-metadata
-            tar cfz ${CHAINCODE_NAME}-METADATA.tgz ${CHAINCODE_NAME}.tar.gz ./metadata.json
-            echo ======>> packaging-with-metadata
-            peer lifecycle chaincode install ${CHAINCODE_NAME}-METADATA.tgz
-            echo ======>> installing-with-metadata
+            peer lifecycle chaincode install ${CHAINCODE_NAME}.tar.gz
+            echo "====== installing-with-metadata"
             echo "Chaincode installed for Fabric v.2.X"
             #query installed
             echo "peer query installed"
