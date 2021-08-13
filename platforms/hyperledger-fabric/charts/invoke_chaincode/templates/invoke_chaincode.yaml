@@ -144,12 +144,11 @@ spec:
             echo $ENDORSING_ORG_NAMES
             for ns in $ENDORSING_ORG_NAMES
             do
-              SECRETPREFIX=secret/crypto/peerOrganizations/${CREATOR_NS}/endorsers/${ns}/users/admin
+              SECRETPREFIX=secret/crypto/peerOrganizations/${ns}/endorsers/${ns}/users/admin
               echo "Fetching certificates for org: $ns"
               echo "Secret prefix for org: $SECRETPREFIX"
 
-              # vault_secret_key="$SECRETPREFIX/msp"
-              vault_secret_key="secret/crypto/peerOrganizations/${ns}/peers/peer0.${ns}/tls"
+              vault_secret_key="$SECRETPREFIX/msp"
               echo "Getting MSP certificates from Vault using key $vault_secret_key"
 
               OUTPUT_PATH="${MOUNT_PATH}/endorsers/$ns/msp"
