@@ -45,5 +45,5 @@ spec:
       name: allchannel
     endorsers:
       creator: manufacturer-net
-      name:  carrier  
-      corepeeraddress:  peer0.carrier-net:7051 
+      name:  carrier  manufacturer  
+      corepeeraddress:  peer0.carrier-net:7051  peer0.manufacturer-net:7051 
