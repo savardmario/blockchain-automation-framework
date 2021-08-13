@@ -184,7 +184,7 @@ spec:
           echo $COMMIT_ARGUMENTS>COMMIT_ARGUMENTS.txt
           COMMIT_ARGUMENTS=$(< COMMIT_ARGUMENTS.txt)
           
-          COMMIT_CMD="peer lifecycle chaincode commit -o ${ORDERER_URL} --tls ${CORE_PEER_TLS_ENABLED} --cafile $ORDERER_CA --channelID ${CHANNEL_NAME} --name ${CHAINCODE_NAME} --version ${CHAINCODE_VERSION} --sequence 1 --init-required"
+          COMMIT_CMD="peer lifecycle chaincode commit -o ${ORDERER_URL} --tls ${CORE_PEER_TLS_ENABLED} --cafile $ORDERER_CA --channelID ${CHANNEL_NAME} --name ${CHAINCODE_NAME} --version ${CHAINCODE_VERSION} --sequence {{ $.Values.chaincode.sequence }} --init-required"
           
           for item in $ENDORSERS_CORE_PEER_ADDR
           do
@@ -206,7 +206,7 @@ spec:
             ## check commit readiness
             echo "peer query commitreadiness"
             peer lifecycle chaincode checkcommitreadiness --channelID ${CHANNEL_NAME} --name ${CHAINCODE_NAME} --version ${CHAINCODE_VERSION} \
-              --sequence 1 --init-required --output json
+              --sequence {{ $.Values.chaincode.sequence }} --init-required --output json
             ## commit chaincode
             echo "peer query commit : Endorsement Policy null "
             eval ${COMMIT_CMD}
@@ -214,7 +214,7 @@ spec:
             ## check commit readiness
             echo "peer query commit readiness"
             peer lifecycle chaincode checkcommitreadiness --channelID ${CHANNEL_NAME} --name ${CHAINCODE_NAME} --version ${CHAINCODE_VERSION} \
-              --sequence 1 --init-required --output json --signature-policy {{ $.Values.chaincode.endorsementpolicies | quote }} > log.txt
+              --sequence {{ $.Values.chaincode.sequence }} --init-required --output json --signature-policy {{ $.Values.chaincode.endorsementpolicies | quote }} > log.txt
             cat log.txt
             ## commit chaincode
             echo "peer query commit"
