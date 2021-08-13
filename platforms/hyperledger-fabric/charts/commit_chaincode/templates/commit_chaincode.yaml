@@ -142,7 +142,7 @@ spec:
           echo $ENDORSING_ORG_NAMES
           for ns in $ENDORSING_ORG_NAMES
           do
-            SECRETPREFIX=secret/crypto/peerOrganizations/${ns}/endorsers/${ns}/users/admin
+            SECRETPREFIX=secret/crypto/peerOrganizations/${ns}-net/endorsers/${ns}/users/admin
             echo "Fetching certificates for org: $ns"
             echo $SECRETPREFIX
 
