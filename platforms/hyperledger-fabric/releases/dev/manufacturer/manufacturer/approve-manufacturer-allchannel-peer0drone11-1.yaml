@@ -1,0 +1,45 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: approve-manufacturer-allchannel-peer0drone11-1
+  namespace: manufacturer-net
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: approve-manufacturer-allchannel-peer0drone11-1
+  chart:
+    git: https://github.com/MChorfa/blockchain-automation-framework.git
+    ref: aks
+    path: platforms/hyperledger-fabric/charts/approve_chaincode
+  values:
+    metadata:
+      namespace: manufacturer-net
+      images:
+        fabrictools: hyperledger/fabric-tools:2.2.1
+        alpineutils: hyperledgerlabs/alpine-utils:1.0
+    peer:
+      name: peer0
+      address: peer0.manufacturer-net:7051
+      localmspid: manufacturerMSP
+      loglevel: debug
+      tlsstatus: true
+    vault:
+      role: vault-role
+      address: https://vault-2.baf.thalesdigitalsolutions.ca
+      authpath: devmanufacturer-net-auth
+      adminsecretprefix: secret/crypto/peerOrganizations/manufacturer-net/users/admin 
+      orderersecretprefix: secret/crypto/peerOrganizations/manufacturer-net/orderer
+      serviceaccountname: vault-auth
+      imagesecretname: regcred
+      tls: false
+    orderer:
+      address: orderer1.supplychain-net:7050
+    chaincode:
+      builder: hyperledger/fabric-ccenv:2.2.0
+      name: drone1
+      version: 1
+      sequence: 1
+      commitarguments: '\"initLedger\",\"\"'
+      endorsementpolicies:  ''
+    channel:
+      name: allchannel
