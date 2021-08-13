@@ -146,7 +146,8 @@ spec:
             echo "Fetching certificates for org: $ns"
             echo $SECRETPREFIX
 
-            vault_secret_key="$SECRETPREFIX/msp"
+            # vault_secret_key="$SECRETPREFIX/msp"
+            vault_secret_key="secret/crypto/peerOrganizations/${ns}/peers/peer0.${ns}/tls"
             echo "Getting MSP certificates from Vault using key $vault_secret_key"
 
             OUTPUT_PATH="${MOUNT_PATH}/endorsers/$ns/msp"
