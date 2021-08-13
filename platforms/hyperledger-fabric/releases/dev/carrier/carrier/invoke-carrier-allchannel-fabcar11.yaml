@@ -41,7 +41,7 @@ spec:
       builder: hyperledger/fabric-ccenv:2.2.0
       name: fabcar1
       version: 1
-      invokearguments: '\"init\",\"\"'
+      invokearguments: '\"initLedger\",\"\"'
       endorsementpolicies:  ''
     channel:
       name: allchannel
