@@ -39,10 +39,10 @@ spec:
     orderer:
       address: orderer1.supplychain-net:7050
     anchorstx: |-
-      CrcCChgKFggCGgYI3+fZiAYiCmFsbGNoYW5uZWwSmgIKlwIKCmFsbGNoYW5uZWwSYxJhCgtBcHBs
+      CrcCChgKFggCGgYI2OrZiAYiCmFsbGNoYW5uZWwSmgIKlwIKCmFsbGNoYW5uZWwSYxJhCgtBcHBs
       aWNhdGlvbhJSCAESTgoKY2Fycmllck1TUBJAGgcKA01TUBIAIgsKB1JlYWRlcnMSACILCgdXcml0
       ZXJzEgAiCgoGQWRtaW5zEgAiDwoLRW5kb3JzZW1lbnQSABqjARKgAQoLQXBwbGljYXRpb24SkAEI
-      ARKLAQoKY2Fycmllck1TUBJ9CAEaMQoLQW5jaG9yUGVlcnMSIhIYChYKEXBlZXIwLmNhcnJpZXIt
-      bmV0EIs3GgZBZG1pbnMaBwoDTVNQEgAiCwoHUmVhZGVycxIAIgsKB1dyaXRlcnMSACIKCgZBZG1p
+      ARKLAQoKY2Fycmllck1TUBJ9CAEaBwoDTVNQEgAaMQoLQW5jaG9yUGVlcnMSIhIYChYKEXBlZXIw
+      LmNhcnJpZXItbmV0EIs3GgZBZG1pbnMiCwoHUmVhZGVycxIAIgsKB1dyaXRlcnMSACIKCgZBZG1p
       bnMSACIPCgtFbmRvcnNlbWVudBIAKgZBZG1pbnM=
 
