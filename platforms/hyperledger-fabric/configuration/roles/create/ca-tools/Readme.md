@@ -24,7 +24,7 @@ This tasks checks if CA server is available or not and waits for the CA server t
 This task creates the CA-tools value files.
 ##### Input Variables
     *name: The name of resource
-    type: "ca-tools"
+    type: ca-tools
     *git_url: "The URL of git repo"
     *git_branch: "Git repo branch name"
     *charts_dir: "The path of chart files"

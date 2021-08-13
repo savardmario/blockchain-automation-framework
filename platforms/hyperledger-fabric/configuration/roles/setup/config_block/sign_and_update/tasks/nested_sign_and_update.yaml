@@ -24,7 +24,7 @@
     peer_name: "{{ peer.name }}"
     component_ns: "{{ participant.name | lower}}-net"
     vault: "{{ org.vault }}"
-    fabrictools_image: "hyperledger/fabric-tools:{{ network.version }}"
+    fabrictools_image: "hyperledger/fabric-tools:2.2.1"
     alpine_image: "{{ docker_url }}/alpine-utils:1.0"
     channel_name: "{{ channel_name }}"
     storage_class: "{{ participant.name }}sc"
@@ -56,7 +56,7 @@
 # Copy the block back to the build folder after signature
 - name: signing from the admin of {{ org.name }}
   shell: |
-    export PEER_CLI=$(KUBECONFIG={{ kubernetes.config_file }} kubectl get po -n {{ org.name | lower }}-net | grep "cli" | head -n 1 | awk '{print $1}')
+    export PEER_CLI=$(KUBECONFIG={{ kubernetes.config_file }} kubectl get po -n {{ org.name | lower }}-net | grep cli | head -n 1 | awk '{print $1}')
     KUBECONFIG={{ kubernetes.config_file }} kubectl cp ./build/{{ channel_name | lower}}_config_block.pb {{ org.name | lower }}-net/${PEER_CLI}:/opt/gopath/src/github.com/hyperledger/fabric/peer/{{ channel_name | lower}}_config_block.pb
     KUBECONFIG={{ kubernetes.config_file }} kubectl exec -n {{ org.name | lower }}-net ${PEER_CLI} -- peer channel signconfigtx -f {{ channel_name | lower}}_config_block.pb
     KUBECONFIG={{ kubernetes.config_file }} kubectl cp {{ org.name | lower }}-net/${PEER_CLI}:/opt/gopath/src/github.com/hyperledger/fabric/peer/{{ channel_name | lower}}_config_block.pb ./build/{{ channel_name | lower}}_config_block.pb

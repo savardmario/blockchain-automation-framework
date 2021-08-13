@@ -25,7 +25,7 @@
     git_branch: "{{ org.gitops.branch }}"
     charts_dir: "{{ org.gitops.chart_source }}"
     vault: "{{ org.vault }}"    
-    fabrictools_image: "hyperledger/fabric-tools:{{ network.version }}"
+    fabrictools_image: "hyperledger/fabric-tools:2.2.1"
     alpine_image: "{{ docker_url }}/alpine-utils:1.0"
     channel_name: "{{ channel_name }}"
     storage_class: "{{ org.name }}sc"
@@ -59,7 +59,7 @@
 # from orderer cli
 - name: sign the configuration block from the blockchain
   shell: |
-    export PEER_CLI=$(KUBECONFIG={{ org.k8s.config_file }} kubectl get po -n {{ component_ns }} | grep "cli" | head -n 1 | awk '{print $1}')
+    export PEER_CLI=$(KUBECONFIG={{ org.k8s.config_file }} kubectl get po -n {{ component_ns }} | grep cli | head -n 1 | awk '{print $1}')
     KUBECONFIG={{ kubernetes.config_file }} kubectl cp {{ build_path }}/{{ channel_name }}_config_update.pb {{ component_ns }}/${PEER_CLI}:/opt/gopath/src/github.com/hyperledger/fabric/peer/{{ channel_name }}_config_update.pb
     KUBECONFIG={{ kubernetes.config_file }} kubectl exec -n {{ component_ns }} ${PEER_CLI} -- peer channel signconfigtx -f {{ channel_name }}_config_update.pb
     KUBECONFIG={{ kubernetes.config_file }} kubectl cp {{ component_ns }}/${PEER_CLI}:/opt/gopath/src/github.com/hyperledger/fabric/peer/{{ channel_name }}_config_update.pb {{ build_path }}/{{ channel_name }}_config_update.pb    

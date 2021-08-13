@@ -9,7 +9,7 @@
   vars:
     component_type: "Pod"
     namespace: "{{ item.name | lower }}-net"
-    component_name: "ca-tools"
+    component_name: ca-tools
     check: "name"
     label_selectors:
       - name = {{ component_name }}

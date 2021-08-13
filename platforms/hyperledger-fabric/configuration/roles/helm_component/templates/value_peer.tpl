@@ -53,7 +53,13 @@ spec:
       builder: hyperledger/fabric-ccenv:{{ network.version }}
       couchdb:
         username: {{ name }}-user
-
+      chaincodeexternalBuilders:
+          - name: "k8scc"
+            path: /opt/k8scc/
+            propagateEnvironment:
+            - KUBERNETES_SERVICE_HOST
+            - KUBERNETES_SERVICE_PORT
+            - K8SCC_CFGFILE
     storage:
       peer:
         storageclassname: {{ name }}sc

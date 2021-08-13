@@ -20,8 +20,8 @@
   include_role:
     name: helm_component
   vars:
-    name: "ca-tools"
-    type: "ca-tools"
+    name: ca-tools
+    type: ca-tools
     git_url: "{{ gitops.git_url }}"
     git_branch: "{{ gitops.branch }}"
     charts_dir: "{{ gitops.chart_source }}"

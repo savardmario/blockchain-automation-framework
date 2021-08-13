@@ -47,7 +47,7 @@
     peer_address: "{{ peer.name }}.{{ namespace }}:{{ peer.grpc.port }}"
     component_name: "chaincode-install-{{ name }}-{{ peer.name }}-{{ peer.chaincode.version | replace('.','-')}}"
     component_chaincode: "{{ peer.chaincode }}"
-    fabrictools_image: "hyperledger/fabric-tools:{{ network.version }}"
+    fabrictools_image: "hyperledger/fabric-tools:2.2.1"
     alpine_image: "{{ docker_url }}/alpine-utils:1.0"
   loop: "{{ network['orderers'] }}"
   loop_control:
