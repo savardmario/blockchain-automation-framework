@@ -39,7 +39,7 @@ spec:
       name: fabcar1
       version: 1
       sequence: 1
-      commitarguments: '\"init\",\"\"'
+      commitarguments: '\"initLedger\",\"\"'
       endorsementpolicies:  ''
     channel:
       name: allchannel
