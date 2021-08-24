@@ -1,0 +1,6 @@
+- ssh port 22 prevent using Thales Github
+- issue with Flux task not triggered automatically
+- Hyperledger explorer installation to be converted in user story
+- renaming organization should be done eventually to match drone scenario
+- hlf external build mecanism is updated to more recente mecanism - need to keep an eye on this
+- go build updated with tidy and mod
