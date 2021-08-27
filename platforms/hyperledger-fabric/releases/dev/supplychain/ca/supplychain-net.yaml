@@ -26,7 +26,7 @@ spec:
       storagesize: 512Mi 
     vault:
       role: vault-role
-      address: https://vault-2.baf.thalesdigitalsolutions.ca
+      address: http://vault.supportservices.svc.cluster.local:8200
       authpath: devsupplychain-net-auth
       secretcert: secret/crypto/ordererOrganizations/supplychain-net/ca?ca.supplychain-net-cert.pem
       secretkey: secret/crypto/ordererOrganizations/supplychain-net/ca?supplychain-net-CA.key
