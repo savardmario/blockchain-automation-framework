@@ -27,7 +27,7 @@ spec:
       storagesize: 512Mi
     vault:
       role: vault-role
-      address: https://vault-2.baf.thalesdigitalsolutions.ca
+      address: http://vault.supportservices.svc.cluster.local:8200
       authpath: devmanufacturer-net-auth
       secretcert: secret/crypto/peerOrganizations/manufacturer-net/ca?ca.manufacturer-net-cert.pem
       secretkey: secret/crypto/peerOrganizations/manufacturer-net/ca?manufacturer-net-CA.key
