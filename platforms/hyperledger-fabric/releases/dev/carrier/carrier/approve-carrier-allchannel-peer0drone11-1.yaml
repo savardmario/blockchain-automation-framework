@@ -1,0 +1,45 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: approve-carrier-allchannel-peer0drone11-1
+  namespace: carrier-net
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: approve-carrier-allchannel-peer0drone11-1
+  chart:
+    git: https://github.com/MChorfa/blockchain-automation-framework.git
+    ref: aks
+    path: platforms/hyperledger-fabric/charts/approve_chaincode
+  values:
+    metadata:
+      namespace: carrier-net
+      images:
+        fabrictools: hyperledger/fabric-tools:2.2.1
+        alpineutils: hyperledgerlabs/alpine-utils:1.0
+    peer:
+      name: peer0
+      address: peer0.carrier-net:7051
+      localmspid: carrierMSP
+      loglevel: debug
+      tlsstatus: true
+    vault:
+      role: vault-role
+      address: https://vault-2.baf.thalesdigitalsolutions.ca
+      authpath: devcarrier-net-auth
+      adminsecretprefix: secret/crypto/peerOrganizations/carrier-net/users/admin 
+      orderersecretprefix: secret/crypto/peerOrganizations/carrier-net/orderer
+      serviceaccountname: vault-auth
+      imagesecretname: regcred
+      tls: false
+    orderer:
+      address: orderer1.supplychain-net:7050
+    chaincode:
+      builder: hyperledger/fabric-ccenv:2.2.0
+      name: drone1
+      version: 1
+      sequence: 1
+      commitarguments: '\"initLedger\",\"\"'
+      endorsementpolicies:  ''
+    channel:
+      name: allchannel
