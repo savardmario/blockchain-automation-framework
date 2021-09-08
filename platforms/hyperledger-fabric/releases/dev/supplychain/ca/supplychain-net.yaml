@@ -8,7 +8,7 @@ metadata:
 spec:
   releaseName: supplychain-net-ca
   chart:
-    git: https://github.com/MChorfa/blockchain-automation-framework.git
+    git: https://github.com/savardmario/blockchain-automation-framework.git
     ref: aks
     path: platforms/hyperledger-fabric/charts/ca    
   values:
@@ -26,8 +26,8 @@ spec:
       storagesize: 512Mi 
     vault:
       role: vault-role
-      address: https://vault-2.baf.thalesdigitalsolutions.ca
-      authpath: devsupplychain-net-auth
+      address: http://192.168.49.1:8200
+      authpath: localsupplychain-net-auth
       secretcert: secret/crypto/ordererOrganizations/supplychain-net/ca?ca.supplychain-net-cert.pem
       secretkey: secret/crypto/ordererOrganizations/supplychain-net/ca?supplychain-net-CA.key
       secretadminpass: secret/credentials/supplychain-net/ca/supplychain?user
