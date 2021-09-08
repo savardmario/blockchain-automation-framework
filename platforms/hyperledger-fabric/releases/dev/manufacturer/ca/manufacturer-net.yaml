@@ -8,7 +8,7 @@ metadata:
 spec:
   releaseName: manufacturer-net-ca
   chart:
-    git: https://github.com/MChorfa/blockchain-automation-framework.git
+    git: https://github.com/savardmario/blockchain-automation-framework.git
     ref: aks
     path: platforms/hyperledger-fabric/charts/ca    
   values:
@@ -27,8 +27,8 @@ spec:
       storagesize: 512Mi
     vault:
       role: vault-role
-      address: https://vault-2.baf.thalesdigitalsolutions.ca
-      authpath: devmanufacturer-net-auth
+      address: http://192.168.49.1:8200
+      authpath: localmanufacturer-net-auth
       secretcert: secret/crypto/peerOrganizations/manufacturer-net/ca?ca.manufacturer-net-cert.pem
       secretkey: secret/crypto/peerOrganizations/manufacturer-net/ca?manufacturer-net-CA.key
       secretadminpass: secret/credentials/manufacturer-net/ca/manufacturer?user
