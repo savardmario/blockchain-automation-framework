@@ -64,4 +64,4 @@ ENV PATH=/root/bin:/root/.local/bin/:$PATH
 VOLUME /home/blockchain-automation-framework/
 
 
-CMD ["/home/run.sh"]
+CMD ["/home/reset.sh"]
