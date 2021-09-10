@@ -15,7 +15,7 @@ spec:
     metadata:
       namespace: carrier-net
       images:
-        alpineutils: 172.18.10.23:5100/alpine-utils:1.0
+        alpineutils: 172.18.10.23:443/alpine-utils:1.0
         ca: hyperledger/fabric-ca:1.4.8
        
     server:
