@@ -51,8 +51,10 @@ RUN /bin/echo -e "[ansible_provisioners:children]\nlocal\n[local]\nlocalhost ans
 # Copy the provisional script to build container
 COPY ./run.sh /home
 COPY ./reset.sh /home
+COPY ./add-org.sh /home
 RUN chmod 755 /home/run.sh
 RUN chmod 755 /home/reset.sh
+RUN chmod 755 /home/add-org.sh
 ENV PATH=/root/bin:/root/.local/bin/:$PATH
 
 # The mounted repo should contain a build folder with the following files
@@ -64,4 +66,4 @@ ENV PATH=/root/bin:/root/.local/bin/:$PATH
 VOLUME /home/blockchain-automation-framework/
 
 
-CMD ["/home/reset.sh"]
+CMD ["/home/add-org.sh"]
