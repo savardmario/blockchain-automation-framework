@@ -8,7 +8,7 @@ metadata:
 spec:
   releaseName: carrier-peer0
   chart:
-    git: https://github.com/MChorfa/blockchain-automation-framework.git
+    git: https://github.com/savardmario/blockchain-automation-framework.git
     ref: aks
     path: platforms/hyperledger-fabric/charts/peernode    
   values:
