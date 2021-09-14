@@ -27,8 +27,8 @@ spec:
       storagesize: 512Mi
     vault:
       role: vault-role
-      address: http://192.168.49.1:8200
-      authpath: localcarrier-net-auth
+      address: https://vault-2.baf.thalesdigitalsolutions.ca
+      authpath: devcarrier-net-auth
       secretcert: secret/crypto/peerOrganizations/carrier-net/ca?ca.carrier-net-cert.pem
       secretkey: secret/crypto/peerOrganizations/carrier-net/ca?carrier-net-CA.key
       secretadminpass: secret/credentials/carrier-net/ca/carrier?user
