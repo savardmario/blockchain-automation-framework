@@ -1,0 +1,27 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: monitor-net-ca-tools
+  namespace: monitor-net
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: monitor-net-ca-tools
+  chart:
+    git: https://github.com/savardmario/blockchain-automation-framework.git
+    ref: aks
+    path: platforms/hyperledger-fabric/charts/catools
+  values:
+    metadata:
+      namespace: monitor-net
+      name: ca-tools
+    replicaCount: 1
+
+    image:
+      repository: hyperledger/fabric-ca-tools
+      tag: 1.2.1
+      pullPolicy: IfNotPresent
+      
+    storage:
+      storageclassname: monitorsc
+      storagesize: 512Mi
